@@ -37,6 +37,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: 'left'
+  },
+  outline: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 
@@ -44,7 +49,7 @@ const classes = computed(
   () =>
     `button button--${props.mode} ${props.hasIcon && 'button--centered'} ${
       props.iconPosition === 'right' && 'button--row-reverse'
-    }`
+    } ${props.outline && 'outline'}`
 )
 </script>
 
@@ -67,10 +72,22 @@ const classes = computed(
   color: var(--color-white);
 }
 
+.button--primary.outline {
+  background: var(--color-white);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
 .button--secondary {
   background: var(--color-secondary);
   border-color: var(--color-secondary);
   color: var(--color-white);
+}
+
+.button--secondary.outline {
+  background: var(--color-white);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 .button--centered {
@@ -87,5 +104,17 @@ const classes = computed(
 .button:hover,
 .button:active {
   opacity: 0.8;
+}
+
+.button--primary.outline:hover,
+.button--primary.outline:active {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.button--secondary.outline:hover,
+.button--secondary.outline:active {
+  background: var(--color-secondary);
+  color: var(--color-white);
 }
 </style>

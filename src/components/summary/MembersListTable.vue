@@ -13,22 +13,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="members-list-table__row">
-            <td class="members-list-table__cell">0001</td>
-            <td class="members-list-table__cell">John Smith</td>
-            <td class="members-list-table__cell">johnsmith@example.com</td>
-            <td class="members-list-table__cell">555-1234</td>
-            <td class="members-list-table__cell">01/01/1980</td>
-            <td class="members-list-table__cell members-list-table__cell--action">
-              <BaseDropdown></BaseDropdown>
-            </td>
-          </tr>
+          <MemberRow />
         </tbody>
       </table>
     </div>
   </BaseContainer>
 </template>
 
+<script setup>
+import { defineComponent } from 'vue'
+import MemberRow from './MemberRow.vue'
+
+defineComponent({
+  MemberRow
+})
+</script>
 <style scoped>
 .wrapper {
   /* overflow-x: scroll;
@@ -54,19 +53,5 @@
   font-weight: 400;
   padding: 12px 8px;
   text-align: left;
-}
-
-.members-list-table__row:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.members-list-table__cell {
-  border-bottom: 1px solid #ddd;
-  padding: 12px 8px;
-}
-
-.members-list-table__row:hover {
-  background-color: #eee;
-  cursor: pointer;
 }
 </style>

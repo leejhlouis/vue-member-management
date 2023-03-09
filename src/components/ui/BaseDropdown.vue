@@ -16,8 +16,7 @@
       <p>Actions</p>
     </BaseButton>
     <ul v-if="isDropdownVisible" class="dropdown__menu">
-      <li class="dropdown__item">View details</li>
-      <li class="dropdown__item">Delete member</li>
+      <slot></slot>
     </ul>
   </div>
 </template>

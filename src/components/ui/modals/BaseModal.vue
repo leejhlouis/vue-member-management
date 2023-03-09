@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div class="backdrop" @click="close"></div>
-    <dialog open class="dialog">
+    <dialog open class="dialog" :style="maxWidthStyle">
       <section class="dialog__wrapper">
         <slot></slot>
       </section>
@@ -10,13 +10,28 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
+import { computed } from '@vue/reactivity'
+import { defineEmits, defineProps } from 'vue'
 
 const emit = defineEmits(['close'])
+
+const props = defineProps({
+  maxWidth: {
+    type: Number,
+    required: false,
+    default: 786
+  }
+})
 
 const close = () => {
   emit('close')
 }
+
+const maxWidthStyle = computed(() => {
+  return {
+    maxWidth: props.maxWidth + 'px'
+  }
+})
 </script>
 
 <style>
@@ -41,10 +56,9 @@ const close = () => {
   overflow: hidden;
   background-color: var(--color-white);
   width: 100%;
-  max-width: 768px;
 }
 
 .dialog__wrapper {
-  padding: 2rem;
+  padding: 2.5rem;
 }
 </style>

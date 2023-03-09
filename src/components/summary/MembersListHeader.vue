@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreateNewUserModal v-if="isCreateModalVisible" @close="close" @submit="submit" />
+    <CreateNewMemberModal v-if="isCreateModalVisible" @close="close" @submit="submit" />
     <BaseContainer class="member-summary">
       <h1 class="member-summary__title">Members</h1>
       <BaseButton mode="primary" has-icon @click="showCreateModal">
@@ -14,11 +14,11 @@
 </template>
 
 <script setup>
-import CreateNewUserModal from './CreateNewUserModal.vue'
+import CreateNewMemberModal from './CreateNewMemberModal.vue'
 import { PlusIcon } from '@heroicons/vue/24/solid'
 import { defineComponent, ref } from 'vue'
 
-defineComponent({ CreateNewUserModal, PlusIcon })
+defineComponent({ CreateNewMemberModal, PlusIcon })
 
 const isCreateModalVisible = ref(false)
 

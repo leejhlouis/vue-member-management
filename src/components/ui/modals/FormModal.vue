@@ -34,7 +34,7 @@ const submit = () => {
 }
 </script>
 
-<style>
+<style scoped>
 .dialog__header {
   display: flex;
   justify-content: space-between;

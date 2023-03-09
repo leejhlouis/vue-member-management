@@ -1,14 +1,57 @@
 <template>
-  <BaseModal>
+  <BaseModal :maxWidth="540" @close="close">
+    <div class="dialog__illustration">
+      <slot name="illustration"></slot>
+    </div>
+    <h2 class="dialog__title">{{ title }}</h2>
+    <div class="dialog__actions dialog__actions--has-submit">
+      <BaseButton outline @click="close">Tidak</BaseButton>
+      <BaseButton v-if="hasSubmit">Ya</BaseButton>
+    </div>
   </BaseModal>
 </template>
 
-<script>
-export default {
+<script setup>
+import { defineProps, defineEmits } from 'vue'
 
+defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  hasSubmit: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+})
+
+const emit = defineEmits(['close'])
+
+const close = () => {
+  emit('close')
 }
 </script>
 
-<style>
+<style scoped>
+.dialog__title {
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-align: center;
+}
 
+.dialog__illustration,
+.dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog__illustration {
+  margin-bottom: 0.5rem;
+}
+.dialog__actions {
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
 </style>

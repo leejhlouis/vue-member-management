@@ -1,5 +1,10 @@
 <template>
-  <div :class="hoverClass" :style="sizeStyles" @mouseover="hover" @mouseleave="unhover">
+  <div
+    :class="hoverClass"
+    :style="[sizeStyles, colorStyle]"
+    @mouseover="hover"
+    @mouseleave="unhover"
+  >
     <slot></slot>
   </div>
 </template>
@@ -17,6 +22,11 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  color: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 
@@ -32,6 +42,12 @@ const sizeStyles = computed(() => {
   return {
     width: props.size + 'px',
     height: props.size + 'px'
+  }
+})
+
+const colorStyle = computed(() => {
+  return {
+    color: props.color
   }
 })
 
