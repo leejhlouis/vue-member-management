@@ -37,7 +37,7 @@ const toggleDropdown = () => {
 }
 </script>
 
-<style>
+<style scoped>
 .dropdown {
   position: relative;
 }
@@ -52,17 +52,5 @@ const toggleDropdown = () => {
   width: fit-content;
   padding: 0.25rem 0;
   margin-top: 0.5rem;
-}
-
-.dropdown__item {
-  padding: 0.5rem 1rem;
-}
-
-.dropdown__item:not(:last-of-type) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.dropdown__item:hover {
-  background: var(--color-white-muted);
 }
 </style>

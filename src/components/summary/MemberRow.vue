@@ -17,7 +17,9 @@
     <td class="members-list-table__cell">01/01/1980</td>
     <td class="members-list-table__cell members-list-table__cell--action">
       <BaseDropdown>
-        <li class="dropdown__item">View details</li>
+        <li>
+          <RouterLink class="dropdown__item" to="/members/1">View details</RouterLink>
+        </li>
         <li class="dropdown__item" @click="deleteMember">Delete member</li>
       </BaseDropdown>
     </td>
@@ -58,5 +60,20 @@ const deleteMember = () => {
 .members-list-table__row:hover {
   background-color: #eee;
   cursor: pointer;
+}
+
+.dropdown__item {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.dropdown__item:not(:last-of-type) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dropdown__item:hover {
+  background: var(--color-white-muted);
 }
 </style>
