@@ -2,7 +2,7 @@ export default {
   members({ members }) {
     return members;
   },
-  getMemberById:
+  getMemberByCode:
     ({ members }) =>
     (code) => {
       return members.find((member) => member.code === code);

@@ -59,9 +59,9 @@ const closeSuccessModal = () => {
 
 async function handleDeletion() {
   try {
-    store.dispatch('deleteMember', { code: props.code });
+    store.dispatch('members/deleteMember', { code: props.code });
   } catch (error) {}
- 
+
   isDeleteModalVisible.value = false;
   isSuccess.value = true;
 }

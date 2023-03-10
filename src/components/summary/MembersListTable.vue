@@ -31,7 +31,7 @@ defineComponent({
 
 const store = useStore();
 
-const members = computed(() => store.getters.members);
+const members = computed(() => store.getters['members/members']);
 </script>
 
 <style scoped>

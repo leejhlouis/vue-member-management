@@ -50,7 +50,7 @@ const closeSuccessModal = () => {
 
 async function createNewMember(data) {
   try {
-    store.dispatch('createMember', data);
+    store.dispatch('members/createMember', data);
   } catch (error) {}
 
   closeMemberForm();

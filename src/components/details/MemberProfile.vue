@@ -90,7 +90,7 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const { code } = defineProps(['code']);
-const member = computed(() => store.getters.getMemberById(code));
+const member = computed(() => store.getters['members/getMemberByCode'](code));
 const isEditing = ref(false);
 
 const name = ref(member.value.name);
