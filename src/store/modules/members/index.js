@@ -1,0 +1,106 @@
+import mutations from './mutations';
+import actions from './actions';
+import getters from './getters';
+
+export default {
+  //   namespaced: true,
+  state() {
+    return {
+      members: [
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+        {
+          code: 'MEM-00001',
+          name: 'John Doe',
+          email: 'john.doe@gdn-commerce.com',
+          phone: '0123456789',
+          dob: '01 January 2021',
+          gender: 'M',
+          profilePicture: 'www.blibli.com/picture/member.jpg',
+        },
+      ],
+    };
+  },
+  mutations,
+  actions,
+  getters,
+};

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <MemberFormModal v-if="isCreateModalVisible" @close="close" @submit="submit" />
+    <SuccessModal v-if="isSuccess" @close="closeSuccessModal"></SuccessModal>
+    <MemberFormModal
+      v-if="isMemberFormVisible"
+      @close="closeMemberForm"
+      @submit="createNewMember"
+    />
     <BaseContainer class="member-summary">
       <h1 class="member-summary__title">Members</h1>
       <BaseButton mode="primary" has-icon @click="showCreateModal">
@@ -15,22 +20,38 @@
 
 <script setup>
 import MemberFormModal from '../modals/MemberFormModal.vue';
+import SuccessModal from '../modals/SuccessModal.vue';
 import { PlusIcon } from '@heroicons/vue/24/solid';
 import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 
-defineComponent({ MemberFormModal, PlusIcon });
+const store = useStore();
 
-const isCreateModalVisible = ref(false);
+defineComponent({ MemberFormModal, PlusIcon, SuccessModal });
+
+const isMemberFormVisible = ref(false);
+const isSuccess = ref(false);
 
 const showCreateModal = () => {
-  isCreateModalVisible.value = true;
+  isMemberFormVisible.value = true;
 };
 
-const close = () => {
-  isCreateModalVisible.value = false;
+const closeMemberForm = () => {
+  isMemberFormVisible.value = false;
 };
 
-const submit = () => {};
+const closeSuccessModal = () => {
+  isSuccess.value = false;
+};
+
+async function createNewMember(data) {
+  try {
+    store.dispatch('createMember', data);
+
+    closeMemberForm();
+    isSuccess.value = true;
+  } catch (error) {}
+}
 </script>
 
 <style scoped>

@@ -5,13 +5,13 @@
     </div>
     <ul class="sidenav__list">
       <li class="sidenav__list-item-wrapper">
-        <RouterLink class="sidenav__list-item" to="/members/1/profile">
+        <RouterLink class="sidenav__list-item" :to="profileNavLink">
           <BaseIcon><UserIcon /></BaseIcon>
           <p>Profile</p>
         </RouterLink>
       </li>
       <li class="sidenav__list-item-wrapper">
-        <RouterLink class="sidenav__list-item" to="/members/1/addresses">
+        <RouterLink class="sidenav__list-item" :to="addressNavLink">
           <BaseIcon><MapPinIcon /></BaseIcon>
           <p>Addresses</p>
         </RouterLink>
@@ -28,13 +28,18 @@
 
 <script setup>
 import { ArrowUturnLeftIcon, MapPinIcon, UserIcon } from '@heroicons/vue/24/solid';
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+
+const { code } = defineProps(['code']);
 
 defineComponent({
   ArrowUturnLeftIcon,
   MapPinIcon,
   UserIcon,
 });
+
+const profileNavLink = computed(() => `/members/${code}/profile`);
+const addressNavLink = computed(() => `/members/${code}/addresses`);
 </script>
 
 <style scoped>

@@ -10,7 +10,8 @@ const router = createRouter({
       component: MemberSummary,
     },
     {
-      path: '/members/:id',
+      path: '/members/:code',
+      props: true,
       component: () => import('../pages/MemberDetails.vue'),
       children: [
         {

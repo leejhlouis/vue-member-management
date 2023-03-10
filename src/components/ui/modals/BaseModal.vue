@@ -47,15 +47,16 @@ const maxWidthStyle = computed(() => {
 
 .dialog {
   position: fixed;
-  top: 12vh;
+  top: 10vh;
   margin: 0 auto;
+  width: 100%;
+  max-height: 80vh;
   z-index: 101;
   border-radius: 8px;
   border: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-y: auto;
   background-color: var(--color-white);
-  width: 100%;
 }
 
 .dialog__wrapper {

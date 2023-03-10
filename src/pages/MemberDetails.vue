@@ -1,13 +1,15 @@
 <template>
   <main>
-    <MemberSideNavigation />
-    <RouterView />
+    <MemberSideNavigation :code="code" />
+    <RouterView :code="code" />
   </main>
 </template>
 
 <script setup>
 import { defineComponent } from 'vue';
 import MemberSideNavigation from '../components/details/MemberSideNavigation.vue';
+
+const { code } = defineProps(['code']);
 
 defineComponent({
   MemberSideNavigation,

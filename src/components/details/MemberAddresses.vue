@@ -7,7 +7,7 @@
       @submit="submit"
     />
     <div class="member-addresses__header">
-      <h1 class="member-addresses__title">Address - MEMBERID</h1>
+      <h1 class="member-addresses__title">Address - {{ code }}</h1>
       <BaseButton @click="showAddAddressForm">Tambah</BaseButton>
     </div>
     <ul class="member-addresses__list">
@@ -21,6 +21,8 @@
 import AddressItem from './AddressItem.vue';
 import AddresssFormModal from '../modals/AddressFormModal.vue';
 import { ref, defineComponent } from 'vue';
+
+const { code } = defineProps(['code']);
 
 defineComponent({
   AddressItem,

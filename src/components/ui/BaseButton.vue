@@ -47,9 +47,9 @@ const props = defineProps({
 
 const classes = computed(
   () =>
-    `button button--${props.mode} ${props.hasIcon && 'button--centered'} ${
-      props.iconPosition === 'right' && 'button--row-reverse'
-    } ${props.outline && 'outline'}`,
+    `button button--${props.mode} ${props.hasIcon ? 'button--centered' : ''} ${
+      props.iconPosition === 'right' ? 'button--row-reverse' : ''
+    } ${props.outline ? 'outline' : ''}`,
 );
 </script>
 
@@ -101,8 +101,8 @@ const classes = computed(
   flex-direction: row-reverse;
 }
 
-.button:hover,
-.button:active {
+.button:not([disabled]):hover,
+.button:not([disabled]):active {
   opacity: 0.8;
 }
 
@@ -116,5 +116,9 @@ const classes = computed(
 .button--secondary.outline:active {
   background: var(--color-secondary);
   color: var(--color-white);
+}
+
+.button[disabled] {
+  background: var(--color-black-muted);
 }
 </style>

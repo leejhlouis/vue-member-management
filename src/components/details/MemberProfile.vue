@@ -57,7 +57,7 @@
               id="male"
               type="radio"
               v-model="gender"
-              value="Male"
+              value="M"
               class="form__radio-input"
               :readonly="!isEditing"
             />
@@ -68,7 +68,7 @@
               id="female"
               type="radio"
               v-model="gender"
-              value="Female"
+              value="F"
               class="form__radio-input"
               :readonly="!isEditing"
             />
@@ -85,20 +85,25 @@
 
 <script setup>
 import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
+const store = useStore();
+
+const { code } = defineProps(['code']);
+const member = computed(() => store.getters.getMemberById(code));
 const isEditing = ref(false);
 
-const name = ref('John Doe');
-const email = ref('johndoe@gmail.com');
-const phoneNumber = ref('0853-2434-2143');
-const dateOfBirth = ref('2002-07-21');
-const gender = ref('Male');
+const name = ref(member.value.name);
+const email = ref(member.value.email);
+const phoneNumber = ref(member.value.phone);
+const dateOfBirth = ref(member.value.dob);
+const gender = ref(member.value.gender);
 
 const enableEditing = () => {
   isEditing.value = true;
 };
 
-const title = computed(() => `${isEditing.value ? 'Edit Profile' : 'Profile'} - MEMBERID`);
+const title = computed(() => `${isEditing.value ? 'Edit Profile' : 'Profile'} - ${code}`);
 </script>
 
 <style scoped>

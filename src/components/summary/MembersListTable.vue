@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <MemberRow />
+          <MemberRow v-for="member in members" :key="member.id" :="member" />
         </tbody>
       </table>
     </div>
@@ -21,13 +21,19 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import MemberRow from './MemberRow.vue';
+import { useStore } from 'vuex';
 
 defineComponent({
   MemberRow,
 });
+
+const store = useStore();
+
+const members = computed(() => store.getters.members);
 </script>
+
 <style scoped>
 .wrapper {
   /* overflow-x: scroll;
