@@ -17,7 +17,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00002',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -26,7 +26,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00003',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -35,7 +35,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00004',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -44,7 +44,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00005',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -53,7 +53,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00006',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -62,7 +62,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00007',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -71,7 +71,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00008',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -80,7 +80,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00009',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',
@@ -89,7 +89,7 @@ export default {
           profilePicture: 'www.blibli.com/picture/member.jpg',
         },
         {
-          code: 'MEM-00001',
+          code: 'MEM-00010',
           name: 'John Doe',
           email: 'john.doe@gdn-commerce.com',
           phone: '0123456789',

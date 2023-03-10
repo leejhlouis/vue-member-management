@@ -2,6 +2,7 @@
   <ConfirmationModal
     title="Apakah Anda yakin ingin menghapus member ini?"
     @close="close"
+    @confirm="confirm"
     has-submit
   >
     <template #illustration>
@@ -20,5 +21,13 @@ defineComponent({
   ExclamationTriangleIcon,
 });
 
-const close = () => {};
+const emit = defineEmits(['close', 'confirm']);
+
+const close = () => {
+  emit('close');
+};
+
+const confirm = () => {
+  emit('confirm');
+};
 </script>

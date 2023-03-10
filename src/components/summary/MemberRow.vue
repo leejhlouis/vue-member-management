@@ -1,5 +1,14 @@
 <template>
-  <DeleteConfirmationModal v-if="isDeleteModalVisible" @close="close" />
+  <SuccessModal
+    v-if="isSuccess"
+    title="Member berhasil dihapus"
+    @close="closeSuccessModal"
+  ></SuccessModal>
+  <DeleteConfirmationModal
+    v-if="isDeleteModalVisible"
+    @close="closeDeleteModal"
+    @confirm="handleDeletion"
+  />
   <tr class="members-list-table__row">
     <td class="members-list-table__cell">{{ code }}</td>
     <td class="members-list-table__cell">{{ name }}</td>
@@ -11,7 +20,7 @@
         <li>
           <RouterLink class="dropdown__item" :to="detailsLink">View details</RouterLink>
         </li>
-        <li class="dropdown__item" @click="deleteMember">Delete member</li>
+        <li class="dropdown__item" @click="attemptDeletion">Delete member</li>
       </BaseDropdown>
     </td>
   </tr>
@@ -20,6 +29,10 @@
 <script setup>
 import { ref, defineComponent, computed } from 'vue';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal.vue';
+import SuccessModal from '../modals/SuccessModal.vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const props = defineProps(['code', 'name', 'email', 'phone', 'dob', 'gender', 'profilePicture']);
 
@@ -28,16 +41,31 @@ defineComponent({
 });
 
 const isDeleteModalVisible = ref(false);
+const isSuccess = ref(false);
 
 const detailsLink = computed(() => `/members/${props.code}`);
 
-const close = () => {
+const closeDeleteModal = () => {
   isDeleteModalVisible.value = false;
 };
 
-const deleteMember = () => {
+const attemptDeletion = () => {
+  isDropdownShown.value = false;
   isDeleteModalVisible.value = true;
 };
+
+const closeSuccessModal = () => {
+  isSuccess.value = false;
+};
+
+async function handleDeletion() {
+  try {
+    store.dispatch('deleteMember', { code: props.code });
+  } catch (error) {}
+ 
+  isDeleteModalVisible.value = false;
+  isSuccess.value = true;
+}
 </script>
 
 <style scoped>

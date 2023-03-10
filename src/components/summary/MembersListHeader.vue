@@ -51,10 +51,10 @@ const closeSuccessModal = () => {
 async function createNewMember(data) {
   try {
     store.dispatch('createMember', data);
-
-    closeMemberForm();
-    isSuccess.value = true;
   } catch (error) {}
+
+  closeMemberForm();
+  isSuccess.value = true;
 }
 </script>
 

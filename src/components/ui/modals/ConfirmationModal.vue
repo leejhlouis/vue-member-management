@@ -6,7 +6,7 @@
     <h2 class="dialog__title">{{ title }}</h2>
     <div class="dialog__actions dialog__actions--has-submit">
       <BaseButton :outline="hasSubmit" @click="close">{{ closeButtonCaption }}</BaseButton>
-      <BaseButton v-if="hasSubmit">Ya</BaseButton>
+      <BaseButton v-if="hasSubmit" @click="confirm">Ya</BaseButton>
     </div>
   </BaseModal>
 </template>
@@ -31,10 +31,14 @@ defineProps({
   },
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'confirm']);
 
 const close = () => {
   emit('close');
+};
+
+const confirm = () => {
+  emit('confirm');
 };
 </script>
 
