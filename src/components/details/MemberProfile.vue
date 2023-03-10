@@ -116,6 +116,7 @@ const title = computed(() => `${isEditing.value ? 'Edit Profile' : 'Profile'} - 
   font-size: 1.5rem;
 }
 .form {
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

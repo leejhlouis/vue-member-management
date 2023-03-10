@@ -1,11 +1,7 @@
 <template>
   <nav class="sidenav">
     <div class="sidenav__profpic--wrapper">
-      <img
-        src="https://64.media.tumblr.com/1159d4da184bfbcca8c09886853894e1/c46807d1376525bb-74/s2048x3072/5189cccb0c340def8995b99cf6937f3e86a8e84e.jpg"
-        class="sidenav__profpic--picture"
-        alt=""
-      />
+      <img src="" class="sidenav__profpic--picture" alt="" />
     </div>
     <ul class="sidenav__list">
       <li class="sidenav__list-item-wrapper">
