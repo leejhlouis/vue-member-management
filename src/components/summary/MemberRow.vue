@@ -50,7 +50,6 @@ const closeDeleteModal = () => {
 };
 
 const attemptDeletion = () => {
-  isDropdownShown.value = false;
   isDeleteModalVisible.value = true;
 };
 
