@@ -24,7 +24,7 @@
 
 <script setup>
 import { defineComponent, ref } from 'vue'
-import AddresssFormModal from './AddressFormModal.vue'
+import AddresssFormModal from '../modals/AddressFormModal.vue'
 
 defineComponent({
   AddresssFormModal

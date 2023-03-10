@@ -5,7 +5,7 @@
     </div>
     <h2 class="dialog__title">{{ title }}</h2>
     <div class="dialog__actions dialog__actions--has-submit">
-      <BaseButton outline @click="close">Tidak</BaseButton>
+      <BaseButton :outline="hasSubmit" @click="close">{{ closeButtonCaption }}</BaseButton>
       <BaseButton v-if="hasSubmit">Ya</BaseButton>
     </div>
   </BaseModal>
@@ -23,6 +23,11 @@ defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  closeButtonCaption: {
+    type: String,
+    required: false,
+    default: 'Tidak'
   }
 })
 

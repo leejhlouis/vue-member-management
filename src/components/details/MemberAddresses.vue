@@ -19,7 +19,7 @@
 
 <script setup>
 import AddressItem from './AddressItem.vue'
-import AddresssFormModal from './AddressFormModal.vue'
+import AddresssFormModal from '../modals/AddressFormModal.vue'
 import { ref, defineComponent } from 'vue'
 
 defineComponent({

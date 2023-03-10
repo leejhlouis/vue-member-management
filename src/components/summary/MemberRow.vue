@@ -1,14 +1,5 @@
 <template>
-  <ConfirmationModal
-    v-if="isCreateModalVisible"
-    title="Apakah Anda yakin ingin menghapus member ini?"
-    @close="close"
-    has-submit
-  >
-    <template #illustration>
-      <BaseIcon :size="120" color="#F25B61"> <ExclamationTriangleIcon /></BaseIcon>
-    </template>
-  </ConfirmationModal>
+  <DeleteConfirmationModal v-if="isDeleteModalVisible" @close="close" />
   <tr class="members-list-table__row">
     <td class="members-list-table__cell">0001</td>
     <td class="members-list-table__cell">John Smith</td>
@@ -28,22 +19,20 @@
 
 <script setup>
 import { ref, defineComponent } from 'vue'
-import ConfirmationModal from '../ui/modals/ConfirmationModal.vue'
-import { ExclamationTriangleIcon } from '@heroicons/vue/24/solid'
+import DeleteConfirmationModal from '../modals/DeleteConfirmationModal.vue'
 
 defineComponent({
-  ConfirmationModal,
-  ExclamationTriangleIcon
+  DeleteConfirmationModal
 })
 
-const isCreateModalVisible = ref(false)
+const isDeleteModalVisible = ref(false)
 
 const close = () => {
-  isCreateModalVisible.value = false
+  isDeleteModalVisible.value = false
 }
 
 const deleteMember = () => {
-  isCreateModalVisible.value = true
+  isDeleteModalVisible.value = true
 }
 </script>
 
