@@ -11,14 +11,14 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
-import ConfirmationModal from '../ui/modals/ConfirmationModal.vue'
-import { ExclamationTriangleIcon } from '@heroicons/vue/24/solid'
+import { defineComponent } from 'vue';
+import ConfirmationModal from '../ui/modals/ConfirmationModal.vue';
+import { ExclamationTriangleIcon } from '@heroicons/vue/24/solid';
 
 defineComponent({
   ConfirmationModal,
-  ExclamationTriangleIcon
-})
+  ExclamationTriangleIcon,
+});
 
-const close = () => {}
+const close = () => {};
 </script>

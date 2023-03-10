@@ -46,32 +46,32 @@
 </template>
 
 <script setup>
-import FormModal from '../ui/modals/FormModal.vue'
-import { defineEmits, ref, computed } from 'vue'
+import FormModal from '../ui/modals/FormModal.vue';
+import { defineEmits, ref, computed } from 'vue';
 
 const props = defineProps({
   mode: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const emit = defineEmits(['close', 'submit'])
+const emit = defineEmits(['close', 'submit']);
 
-const label = ref('')
-const province = ref('')
-const city = ref('')
-const address = ref('')
+const label = ref('');
+const province = ref('');
+const city = ref('');
+const address = ref('');
 
-const title = computed(() => `${props.mode === 'add' ? 'Add' : 'Edit'} address`)
+const title = computed(() => `${props.mode === 'add' ? 'Add' : 'Edit'} address`);
 
 const close = () => {
-  emit('close')
-}
+  emit('close');
+};
 
 const handleSubmit = () => {
-  alert(`${label.value} ${province.value} ${city.value} ${address.value}`)
-}
+  alert(`${label.value} ${province.value} ${city.value} ${address.value}`);
+};
 </script>
 
 <style scoped>

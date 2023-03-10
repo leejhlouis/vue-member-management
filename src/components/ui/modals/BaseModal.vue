@@ -10,28 +10,28 @@
 </template>
 
 <script setup>
-import { computed } from '@vue/reactivity'
-import { defineEmits, defineProps } from 'vue'
+import { computed } from 'vue';
+import { defineEmits, defineProps } from 'vue';
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close']);
 
 const props = defineProps({
   maxWidth: {
     type: Number,
     required: false,
-    default: 786
-  }
-})
+    default: 786,
+  },
+});
 
 const close = () => {
-  emit('close')
-}
+  emit('close');
+};
 
 const maxWidthStyle = computed(() => {
   return {
-    maxWidth: props.maxWidth + 'px'
-  }
-})
+    maxWidth: props.maxWidth + 'px',
+  };
+});
 </script>
 
 <style>

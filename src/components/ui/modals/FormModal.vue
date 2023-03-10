@@ -11,27 +11,23 @@
 </template>
 
 <script setup>
-import { XMarkIcon } from '@heroicons/vue/24/solid'
-import { defineComponent, defineProps, defineEmits } from 'vue'
+import { XMarkIcon } from '@heroicons/vue/24/solid';
+import { defineComponent, defineProps, defineEmits } from 'vue';
 
-defineComponent({ XMarkIcon })
+defineComponent({ XMarkIcon });
 
 defineProps({
   title: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const emit = defineEmits(['close', 'submit'])
+const emit = defineEmits(['close', 'submit']);
 
 const close = () => {
-  emit('close')
-}
-
-const submit = () => {
-  emit('submit')
-}
+  emit('close');
+};
 </script>
 
 <style scoped>

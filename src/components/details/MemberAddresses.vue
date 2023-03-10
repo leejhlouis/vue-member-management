@@ -18,26 +18,26 @@
 </template>
 
 <script setup>
-import AddressItem from './AddressItem.vue'
-import AddresssFormModal from '../modals/AddressFormModal.vue'
-import { ref, defineComponent } from 'vue'
+import AddressItem from './AddressItem.vue';
+import AddresssFormModal from '../modals/AddressFormModal.vue';
+import { ref, defineComponent } from 'vue';
 
 defineComponent({
   AddressItem,
-  AddresssFormModal
-})
+  AddresssFormModal,
+});
 
-const isAddressFormVisible = ref(false)
+const isAddressFormVisible = ref(false);
 
 const showAddAddressForm = () => {
-  isAddressFormVisible.value = true
-}
+  isAddressFormVisible.value = true;
+};
 
 const hideAddAddressForm = () => {
-  isAddressFormVisible.value = false
-}
+  isAddressFormVisible.value = false;
+};
 
-const submit = () => {}
+const submit = () => {};
 </script>
 
 <style scoped>

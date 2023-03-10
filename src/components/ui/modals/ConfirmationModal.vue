@@ -12,30 +12,30 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits } from 'vue';
 
 defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   hasSubmit: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   closeButtonCaption: {
     type: String,
     required: false,
-    default: 'Tidak'
-  }
-})
+    default: 'Tidak',
+  },
+});
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close']);
 
 const close = () => {
-  emit('close')
-}
+  emit('close');
+};
 </script>
 
 <style scoped>

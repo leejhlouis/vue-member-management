@@ -62,25 +62,25 @@
 </template>
 
 <script setup>
-import FormModal from '../ui/modals/FormModal.vue'
-import { defineEmits, ref } from 'vue'
+import FormModal from '../ui/modals/FormModal.vue';
+import { defineEmits, ref } from 'vue';
 
-const emit = defineEmits(['close', 'submit'])
+const emit = defineEmits(['close', 'submit']);
 
-const name = ref('')
-const email = ref('')
-const phoneNumber = ref('')
-const dateOfBirth = ref('')
-const gender = ref(null)
+const name = ref('');
+const email = ref('');
+const phoneNumber = ref('');
+const dateOfBirth = ref('');
+const gender = ref(null);
 
 const close = () => {
-  emit('close')
-}
+  emit('close');
+};
 
 const handleSubmit = () => {
-  alert(`${name.value} ${email.value} ${phoneNumber.value} ${dateOfBirth.value} ${gender.value}`)
+  alert(`${name.value} ${email.value} ${phoneNumber.value} ${dateOfBirth.value} ${gender.value}`);
   // emit('submit')
-}
+};
 </script>
 
 <style scoped>

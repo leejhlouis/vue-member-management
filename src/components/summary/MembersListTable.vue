@@ -21,12 +21,12 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
-import MemberRow from './MemberRow.vue'
+import { defineComponent } from 'vue';
+import MemberRow from './MemberRow.vue';
 
 defineComponent({
-  MemberRow
-})
+  MemberRow,
+});
 </script>
 <style scoped>
 .wrapper {

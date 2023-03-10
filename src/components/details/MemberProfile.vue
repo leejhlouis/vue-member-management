@@ -84,21 +84,21 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-const isEditing = ref(false)
+const isEditing = ref(false);
 
-const name = ref('John Doe')
-const email = ref('johndoe@gmail.com')
-const phoneNumber = ref('0853-2434-2143')
-const dateOfBirth = ref('2002-07-21')
-const gender = ref('Male')
+const name = ref('John Doe');
+const email = ref('johndoe@gmail.com');
+const phoneNumber = ref('0853-2434-2143');
+const dateOfBirth = ref('2002-07-21');
+const gender = ref('Male');
 
 const enableEditing = () => {
-  isEditing.value = true
-}
+  isEditing.value = true;
+};
 
-const title = computed(() => `${isEditing.value ? 'Edit Profile' : 'Profile'} - MEMBERID`)
+const title = computed(() => `${isEditing.value ? 'Edit Profile' : 'Profile'} - MEMBERID`);
 </script>
 
 <style scoped>

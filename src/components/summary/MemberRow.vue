@@ -18,22 +18,22 @@
 </template>
 
 <script setup>
-import { ref, defineComponent } from 'vue'
-import DeleteConfirmationModal from '../modals/DeleteConfirmationModal.vue'
+import { ref, defineComponent } from 'vue';
+import DeleteConfirmationModal from '../modals/DeleteConfirmationModal.vue';
 
 defineComponent({
-  DeleteConfirmationModal
-})
+  DeleteConfirmationModal,
+});
 
-const isDeleteModalVisible = ref(false)
+const isDeleteModalVisible = ref(false);
 
 const close = () => {
-  isDeleteModalVisible.value = false
-}
+  isDeleteModalVisible.value = false;
+};
 
 const deleteMember = () => {
-  isDeleteModalVisible.value = true
-}
+  isDeleteModalVisible.value = true;
+};
 </script>
 
 <style scoped>

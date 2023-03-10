@@ -10,47 +10,47 @@
 </template>
 
 <script setup>
-import { computed, defineProps } from 'vue'
+import { computed, defineProps } from 'vue';
 
 const props = defineProps({
   mode: {
     type: String,
     required: false,
-    default: 'primary'
+    default: 'primary',
   },
   link: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   to: {
     type: String,
     required: false,
-    default: '/'
+    default: '/',
   },
   hasIcon: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   iconPosition: {
     type: String,
     required: false,
-    default: 'left'
+    default: 'left',
   },
   outline: {
     type: Boolean,
     required: false,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
 const classes = computed(
   () =>
     `button button--${props.mode} ${props.hasIcon && 'button--centered'} ${
       props.iconPosition === 'right' && 'button--row-reverse'
-    } ${props.outline && 'outline'}`
-)
+    } ${props.outline && 'outline'}`,
+);
 </script>
 
 <style scoped>

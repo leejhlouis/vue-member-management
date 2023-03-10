@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import MemberSummary from '../pages/MemberSummary.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import MemberSummary from '../pages/MemberSummary.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: MemberSummary
+      component: MemberSummary,
     },
     {
       path: '/members/:id',
@@ -16,15 +16,15 @@ const router = createRouter({
         {
           path: '',
           component: () => import('../components/details/MemberProfile.vue'),
-          alias: 'profile'
+          alias: 'profile',
         },
         {
           path: 'addresses',
-          component: () => import('../components/details/MemberAddresses.vue')
-        }
-      ]
-    }
-  ]
-})
+          component: () => import('../components/details/MemberAddresses.vue'),
+        },
+      ],
+    },
+  ],
+});
 
-export default router
+export default router;

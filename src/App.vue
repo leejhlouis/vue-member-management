@@ -4,10 +4,10 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
-import TheHeader from './components/layouts/TheHeader.vue'
+import { defineComponent } from 'vue';
+import TheHeader from './components/layouts/TheHeader.vue';
 
 defineComponent({
-  TheHeader
-})
+  TheHeader,
+});
 </script>

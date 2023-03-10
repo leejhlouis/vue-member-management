@@ -1,22 +1,22 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import BaseContainer from './components/ui/BaseContainer.vue'
-import BaseButton from './components/ui/BaseButton.vue'
-import BaseIcon from './components/ui/BaseIcon.vue'
-import BaseDropdown from './components/ui/BaseDropdown.vue'
-import BaseModal from './components/ui/modals/BaseModal.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import BaseContainer from './components/ui/BaseContainer.vue';
+import BaseButton from './components/ui/BaseButton.vue';
+import BaseIcon from './components/ui/BaseIcon.vue';
+import BaseDropdown from './components/ui/BaseDropdown.vue';
+import BaseModal from './components/ui/modals/BaseModal.vue';
 
-import './assets/base.css'
+import './assets/base.css';
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.component('BaseContainer', BaseContainer)
-app.component('BaseButton', BaseButton)
-app.component('BaseIcon', BaseIcon)
-app.component('BaseDropdown', BaseDropdown)
-app.component('BaseModal', BaseModal)
+app.component('BaseContainer', BaseContainer);
+app.component('BaseButton', BaseButton);
+app.component('BaseIcon', BaseIcon);
+app.component('BaseDropdown', BaseDropdown);
+app.component('BaseModal', BaseModal);
 
-app.use(router)
+app.use(router);
 
-app.mount('#app')
+app.mount('#app');

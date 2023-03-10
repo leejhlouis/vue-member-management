@@ -6,14 +6,14 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
-import MembersListHeader from '../components/summary/MembersListHeader.vue'
-import MembersListTable from '../components/summary/MembersListTable.vue'
+import { defineComponent } from 'vue';
+import MembersListHeader from '../components/summary/MembersListHeader.vue';
+import MembersListTable from '../components/summary/MembersListTable.vue';
 
 defineComponent({
   MembersListHeader,
-  MembersListTable
-})
+  MembersListTable,
+});
 </script>
 
 <style scoped>

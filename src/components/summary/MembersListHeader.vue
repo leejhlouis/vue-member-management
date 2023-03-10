@@ -14,23 +14,23 @@
 </template>
 
 <script setup>
-import MemberFormModal from '../modals/MemberFormModal.vue'
-import { PlusIcon } from '@heroicons/vue/24/solid'
-import { defineComponent, ref } from 'vue'
+import MemberFormModal from '../modals/MemberFormModal.vue';
+import { PlusIcon } from '@heroicons/vue/24/solid';
+import { defineComponent, ref } from 'vue';
 
-defineComponent({ MemberFormModal, PlusIcon })
+defineComponent({ MemberFormModal, PlusIcon });
 
-const isCreateModalVisible = ref(false)
+const isCreateModalVisible = ref(false);
 
 const showCreateModal = () => {
-  isCreateModalVisible.value = true
-}
+  isCreateModalVisible.value = true;
+};
 
 const close = () => {
-  isCreateModalVisible.value = false
-}
+  isCreateModalVisible.value = false;
+};
 
-const submit = () => {}
+const submit = () => {};
 </script>
 
 <style scoped>

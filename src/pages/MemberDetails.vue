@@ -6,12 +6,12 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
-import MemberSideNavigation from '../components/details/MemberSideNavigation.vue'
+import { defineComponent } from 'vue';
+import MemberSideNavigation from '../components/details/MemberSideNavigation.vue';
 
 defineComponent({
-  MemberSideNavigation
-})
+  MemberSideNavigation,
+});
 </script>
 
 <style scoped>

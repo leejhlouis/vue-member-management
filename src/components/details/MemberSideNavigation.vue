@@ -27,14 +27,14 @@
 </template>
 
 <script setup>
-import { ArrowUturnLeftIcon, MapPinIcon, UserIcon } from '@heroicons/vue/24/solid'
-import { defineComponent } from 'vue'
+import { ArrowUturnLeftIcon, MapPinIcon, UserIcon } from '@heroicons/vue/24/solid';
+import { defineComponent } from 'vue';
 
 defineComponent({
   ArrowUturnLeftIcon,
   MapPinIcon,
-  UserIcon
-})
+  UserIcon,
+});
 </script>
 
 <style scoped>

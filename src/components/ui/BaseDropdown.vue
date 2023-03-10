@@ -22,19 +22,19 @@
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid'
+import { defineComponent, ref } from 'vue';
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 defineComponent({
   ChevronUpIcon,
-  ChevronDownIcon
-})
+  ChevronDownIcon,
+});
 
-const isDropdownVisible = ref(false)
+const isDropdownVisible = ref(false);
 
 const toggleDropdown = () => {
-  isDropdownVisible.value = !isDropdownVisible.value
-}
+  isDropdownVisible.value = !isDropdownVisible.value;
+};
 </script>
 
 <style scoped>

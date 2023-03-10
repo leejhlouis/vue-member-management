@@ -23,26 +23,26 @@
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
-import AddresssFormModal from '../modals/AddressFormModal.vue'
+import { defineComponent, ref } from 'vue';
+import AddresssFormModal from '../modals/AddressFormModal.vue';
 
 defineComponent({
-  AddresssFormModal
-})
+  AddresssFormModal,
+});
 
-const isEditFormVisible = ref(false)
+const isEditFormVisible = ref(false);
 
 const showEditAddressForm = () => {
-  isEditFormVisible.value = true
-}
+  isEditFormVisible.value = true;
+};
 
 const hideEditAddressForm = () => {
-  isEditFormVisible.value = false
-}
+  isEditFormVisible.value = false;
+};
 
-const submit = () => {}
+const submit = () => {};
 
-const deleteAddress = () => {}
+const deleteAddress = () => {};
 </script>
 
 <style scoped>
