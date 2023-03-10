@@ -223,9 +223,6 @@ const handleSubmit = () => {
     return;
   }
 
-  alert(
-    `${attributes.value.name.val} ${attributes.value.email.val} ${attributes.value.phone.val} ${attributes.value.dob.val} ${attributes.value.gender.val}`,
-  );
   emit('submit', {
     name: attributes.value.name.val,
     email: attributes.value.email.val,

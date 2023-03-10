@@ -1,6 +1,10 @@
 <template>
   <div>
-    <SuccessModal v-if="isSuccess" @close="closeSuccessModal"></SuccessModal>
+    <SuccessModal
+      v-if="isSuccess"
+      title="Member berhasil ditambah"
+      @close="closeSuccessModal"
+    ></SuccessModal>
     <MemberFormModal
       v-if="isMemberFormVisible"
       @close="closeMemberForm"
