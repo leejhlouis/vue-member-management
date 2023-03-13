@@ -12,7 +12,7 @@
     />
     <div class="wrapper">
       <table class="members-list-table">
-        <thead>
+        <thead class="members-list-table__thead">
           <tr>
             <th class="members-list-table__header">Member code</th>
             <th class="members-list-table__header">Name</th>
@@ -98,6 +98,12 @@ const hideSuccessModal = () => (isSuccess.value = false);
 .members-list-table {
   border-collapse: collapse;
   width: 100%;
+}
+
+.members-list-table__thead {
+  position: sticky;
+  top: 0;
+  z-index: 15;
 }
 
 .members-list-table__header {
