@@ -7,6 +7,9 @@ import BaseButton from './components/ui/BaseButton.vue';
 import BaseIcon from './components/ui/BaseIcon.vue';
 import BaseDropdown from './components/ui/BaseDropdown.vue';
 import BaseModal from './components/ui/modals/BaseModal.vue';
+import BaseInput from './components/ui/inputs/BaseInput.vue';
+import TextFieldInput from './components/ui/inputs/TextFieldInput.vue';
+import OptionsInput from './components/ui/inputs/OptionsInput.vue';
 
 import './assets/base.css';
 
@@ -17,6 +20,9 @@ app.component('BaseButton', BaseButton);
 app.component('BaseIcon', BaseIcon);
 app.component('BaseDropdown', BaseDropdown);
 app.component('BaseModal', BaseModal);
+app.component('BaseInput', BaseInput);
+app.component('TextFieldInput', TextFieldInput);
+app.component('OptionsInput', OptionsInput);
 
 app.use(router);
 app.use(store);

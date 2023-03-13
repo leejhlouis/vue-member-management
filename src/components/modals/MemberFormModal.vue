@@ -1,90 +1,42 @@
 <template>
   <FormModal title="Create new member" @close="close">
     <form class="form" @submit.prevent="handleSubmit">
-      <div class="form__group">
-        <label for="name" class="form__label">Name</label>
-        <input
-          id="name"
-          type="text"
-          v-model.trim="attributes.name.val"
-          class="form__input"
-          :class="invalidClass('name')"
-          placeholder="Name"
-        />
-        <p v-if="!!attributes.name.invalidMessage" class="form__invalid-message">
-          {{ attributes.name.invalidMessage }}
-        </p>
-      </div>
-      <div class="form__group">
-        <label for="email" class="form__label">Email address</label>
-        <input
-          id="email"
-          type="email"
-          v-model.trim="attributes.email.val"
-          class="form__input"
-          :class="invalidClass('email')"
-          placeholder="Email address"
-        />
-        <p v-if="!!attributes.email.invalidMessage" class="form__invalid-message">
-          {{ attributes.email.invalidMessage }}
-        </p>
-      </div>
-      <div class="form__group">
-        <label for="phone" class="form__label">Phone number</label>
-        <input
-          id="phone"
-          type="tel"
-          v-model.trim="attributes.phone.val"
-          class="form__input"
-          :class="invalidClass('phone')"
-          placeholder="Phone number"
-        />
-        <p v-if="!!attributes.phone.invalidMessage" class="form__invalid-message">
-          {{ attributes.phone.invalidMessage }}
-        </p>
-      </div>
-      <div class="form__group">
-        <label for="dob" class="form__label">Date of birth</label>
-        <input
-          id="dob"
-          type="date"
-          v-model.trim="attributes.dob.val"
-          class="form__input"
-          :class="invalidClass('dob')"
-          placeholder="Date of birth"
-        />
-        <p v-if="!!attributes.dob.invalidMessage" class="form__invalid-message">
-          {{ attributes.dob.invalidMessage }}
-        </p>
-      </div>
-      <div class="form__group">
-        <label class="form__label">Gender</label>
-        <div class="form__radio-group">
-          <label for="male" class="form__radio-label">
-            <input
-              id="male"
-              type="radio"
-              v-model="attributes.gender.val"
-              value="Male"
-              class="form__radio-input"
-            />
-            Male
-          </label>
-          <label for="female" class="form__radio-label">
-            <input
-              id="female"
-              type="radio"
-              v-model="attributes.gender.val"
-              value="Female"
-              class="form__radio-input"
-            />
-            Female
-          </label>
-        </div>
-        <p v-if="!!attributes.gender.invalidMessage" class="form__invalid-message">
-          {{ attributes.gender.invalidMessage }}
-        </p>
-      </div>
+      <TextFieldInput
+        name="name"
+        v-model="attributes.name.val"
+        :invalid="attributes.name.invalidMessage"
+      />
+      <TextFieldInput
+        name="email"
+        label="Email address"
+        type="email"
+        v-model="attributes.email.val"
+        :invalid="attributes.email.invalidMessage"
+      />
+      <TextFieldInput
+        name="phone"
+        label="Phone number"
+        type="tel"
+        v-model="attributes.phone.val"
+        :invalid="attributes.phone.invalidMessage"
+      />
+      <TextFieldInput
+        name="dob"
+        label="Date of birth"
+        type="date"
+        v-model="attributes.dob.val"
+        :invalid="attributes.dob.invalidMessage"
+      />
+      <OptionsInput
+        name="gender"
+        :options="[
+          { label: 'Male', value: 'M' },
+          { label: 'Female', value: 'F' },
+        ]"
+        v-model="attributes.gender.val"
+        :invalid="attributes.gender.invalidMessage"
+      >
+      </OptionsInput>
       <div class="form__actions">
         <BaseButton :disabled="!canSubmit">Submit</BaseButton>
       </div>
@@ -125,7 +77,7 @@ const attributes = ref({
   },
   gender: {
     attrName: 'gender',
-    val: null,
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
@@ -133,12 +85,6 @@ const attributes = ref({
 
 const close = () => {
   emit('close');
-};
-
-const invalidClass = (attr) => {
-  return {
-    invalid: !attributes.value[attr].isValid,
-  };
 };
 
 const canSubmit = computed(
@@ -238,49 +184,6 @@ const handleSubmit = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.form__group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form__label {
-  margin-bottom: 0.5rem;
-}
-
-.form__input {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.form__input.invalid {
-  border: 1.25px solid #e22e2e;
-}
-
-.form__invalid-message {
-  color: #e22e2e;
-  padding-top: 0.5rem;
-}
-
-.form__radio-group {
-  display: flex;
-  flex-direction: row;
-}
-
-.form__radio-label {
-  display: flex;
-  align-items: center;
-  margin-right: 1rem;
-}
-
-.form__radio-input {
-  margin-right: 0.5rem;
 }
 
 .form__actions {
