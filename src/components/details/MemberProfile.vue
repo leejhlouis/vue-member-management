@@ -4,82 +4,48 @@
       <h1 class="member-profile__title">{{ title }}</h1>
       <BaseButton v-if="!isEditing" @click="enableEditing">Edit</BaseButton>
     </div>
-    <form class="form" @submit.prevent="handleSubmit">
-      <div class="form__group">
-        <label for="name" class="form__label">Name</label>
-        <input
-          id="name"
-          type="text"
-          v-model.trim="name"
-          class="form__input"
-          placeholder="Name"
-          :readonly="!isEditing"
-        />
-      </div>
-      <div class="form__group">
-        <label for="email" class="form__label">Email address</label>
-        <input
-          id="email"
-          type="email"
-          v-model.trim="email"
-          class="form__input"
-          placeholder="Email address"
-          :readonly="!isEditing"
-        />
-      </div>
-      <div class="form__group">
-        <label for="phone" class="form__label">Phone number</label>
-        <input
-          id="phone"
-          type="tel"
-          v-model.trim="phoneNumber"
-          class="form__input"
-          placeholder="Phone number"
-          :readonly="!isEditing"
-        />
-      </div>
-      <div class="form__group">
-        <label for="dob" class="form__label">Date of birth</label>
-        <input
-          id="dob"
-          type="date"
-          v-model.trim="dateOfBirth"
-          class="form__input"
-          placeholder="Date of birth"
-          :readonly="!isEditing"
-        />
-      </div>
-      <div class="form__group">
-        <label class="form__label">Gender</label>
-        <div class="form__radio-group">
-          <label for="male" class="form__radio-label">
-            <input
-              id="male"
-              type="radio"
-              v-model="gender"
-              value="M"
-              class="form__radio-input"
-              :readonly="!isEditing"
-            />
-            Male
-          </label>
-          <label for="female" class="form__radio-label">
-            <input
-              id="female"
-              type="radio"
-              v-model="gender"
-              value="F"
-              class="form__radio-input"
-              :readonly="!isEditing"
-            />
-            Female
-          </label>
-        </div>
-      </div>
-      <div v-if="isEditing" class="form__actions">
-        <BaseButton>Submit</BaseButton>
-      </div>
-    </form>
+    <BaseForm :submit="isEditing" @submit.prevent="handleSubmit">
+      <TextFieldInput
+        name="name"
+        v-model.trim="attributes.name.val"
+        :invalid="attributes.name.invalidMessage"
+        :readonly="!isEditing"
+      />
+      <TextFieldInput
+        name="email"
+        label="Email address"
+        type="email"
+        v-model.trim="attributes.email.val"
+        :invalid="attributes.email.invalidMessage"
+        :readonly="!isEditing"
+      />
+      <TextFieldInput
+        name="phone"
+        label="Phone number"
+        type="tel"
+        v-model.trim="attributes.phone.val"
+        :invalid="attributes.phone.invalidMessage"
+        :readonly="!isEditing"
+      />
+      <TextFieldInput
+        name="dob"
+        label="Date of birth"
+        type="date"
+        v-model.trim="attributes.dob.val"
+        :invalid="attributes.dob.invalidMessage"
+        :readonly="!isEditing"
+      />
+      <OptionsInput
+        name="gender"
+        :options="[
+          { label: 'Male', value: 'M' },
+          { label: 'Female', value: 'F' },
+        ]"
+        v-model.trim="attributes.gender.val"
+        :invalid="attributes.gender.invalidMessage"
+        :readonly="!isEditing"
+      />
+    </BaseForm>
   </BaseContainer>
 </template>
 
@@ -91,13 +57,41 @@ const store = useStore();
 
 const { code } = defineProps(['code']);
 const member = computed(() => store.getters['members/getMemberByCode'](code));
-const isEditing = ref(false);
 
-const name = ref(member.value.name);
-const email = ref(member.value.email);
-const phoneNumber = ref(member.value.phone);
-const dateOfBirth = ref(member.value.dob);
-const gender = ref(member.value.gender);
+const attributes = ref({
+  name: {
+    attrName: 'name',
+    val: member.value.name,
+    isValid: true,
+    invalidMessage: null,
+  },
+  email: {
+    attrName: 'email address',
+    val: member.value.email,
+    isValid: true,
+    invalidMessage: null,
+  },
+  phone: {
+    attrName: 'phone number',
+    val: member.value.phone,
+    isValid: true,
+    invalidMessage: null,
+  },
+  dob: {
+    attrName: 'date of birth',
+    val: member.value.dob,
+    isValid: true,
+    invalidMessage: null,
+  },
+  gender: {
+    attrName: 'gender',
+    val: member.value.gender,
+    isValid: true,
+    invalidMessage: null,
+  },
+});
+
+const isEditing = ref(false);
 
 const enableEditing = () => {
   isEditing.value = true;

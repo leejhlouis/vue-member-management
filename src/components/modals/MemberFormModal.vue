@@ -1,30 +1,30 @@
 <template>
   <FormModal title="Create new member" @close="close">
-    <form class="form" @submit.prevent="handleSubmit">
+    <BaseForm :can-submit="canSubmit" @submit.prevent="handleSubmit">
       <TextFieldInput
         name="name"
-        v-model="attributes.name.val"
+        v-model.trim="attributes.name.val"
         :invalid="attributes.name.invalidMessage"
       />
       <TextFieldInput
         name="email"
         label="Email address"
         type="email"
-        v-model="attributes.email.val"
+        v-model.trim="attributes.email.val"
         :invalid="attributes.email.invalidMessage"
       />
       <TextFieldInput
         name="phone"
         label="Phone number"
         type="tel"
-        v-model="attributes.phone.val"
+        v-model.trim="attributes.phone.val"
         :invalid="attributes.phone.invalidMessage"
       />
       <TextFieldInput
         name="dob"
         label="Date of birth"
         type="date"
-        v-model="attributes.dob.val"
+        v-model.trim="attributes.dob.val"
         :invalid="attributes.dob.invalidMessage"
       />
       <OptionsInput
@@ -33,14 +33,10 @@
           { label: 'Male', value: 'M' },
           { label: 'Female', value: 'F' },
         ]"
-        v-model="attributes.gender.val"
+        v-model.trim="attributes.gender.val"
         :invalid="attributes.gender.invalidMessage"
-      >
-      </OptionsInput>
-      <div class="form__actions">
-        <BaseButton :disabled="!canSubmit">Submit</BaseButton>
-      </div>
-    </form>
+      />
+    </BaseForm>
   </FormModal>
 </template>
 
@@ -178,18 +174,3 @@ const handleSubmit = () => {
   });
 };
 </script>
-
-<style scoped>
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form__actions {
-  margin-top: 1.25rem;
-  display: flex;
-  justify-content: end;
-  width: 100%;
-}
-</style>

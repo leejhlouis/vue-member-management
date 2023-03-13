@@ -3,7 +3,13 @@
     <template #input>
       <div class="form__radio-group">
         <label v-for="({ label, value }, index) in options" :key="index" class="form__radio-label">
-          <input type="radio" class="form__radio-input" :value="value" v-model="selected" />
+          <input
+            type="radio"
+            class="form__radio-input"
+            :value="value"
+            v-model="selected"
+            :disabled="readonly"
+          />
           {{ label }}
         </label>
       </div>
