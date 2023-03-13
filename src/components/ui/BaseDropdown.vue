@@ -34,7 +34,7 @@ const dropdown = ref(null);
 const isDropdownVisible = ref(false);
 
 const hideDropdownIfClickedOutside = ({ target }) => {
-  if (!dropdown.value.contains(target)) {
+  if (dropdown.value && !dropdown.value.contains(target)) {
     isDropdownVisible.value = false;
     document.removeEventListener('click', hideDropdownIfClickedOutside);
   }
