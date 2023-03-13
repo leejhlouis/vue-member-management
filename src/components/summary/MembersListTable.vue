@@ -43,14 +43,10 @@
 <script setup>
 import { ref, defineComponent, computed } from 'vue';
 import MemberRow from './MemberRow.vue';
-import DeleteConfirmationModal from '../modals/DeleteConfirmationModal.vue';
-import SuccessModal from '../modals/SuccessModal.vue';
 import { useStore } from 'vuex';
 
 defineComponent({
   MemberRow,
-  DeleteConfirmationModal,
-  SuccessModal,
 });
 
 const store = useStore();
@@ -68,17 +64,18 @@ const showDeleteModal = ({ code }) => {
 
 const hideDeleteModal = () => (isDeleteModalVisible.value = false);
 
-async function handleDelete() {
-  try {
-    store.dispatch('members/deleteMember', { code: memberCode.value });
-  } catch (error) {}
-
-  isDeleteModalVisible.value = false;
-  showSuccessModal();
-}
-
 const showSuccessModal = () => (isSuccess.value = true);
 const hideSuccessModal = () => (isSuccess.value = false);
+
+const handleDelete = async () => {
+  try {
+    await store.dispatch('members/deleteMember', { code: memberCode.value });
+
+    showSuccessModal();
+  } catch (error) {}
+
+  hideDeleteModal();
+};
 </script>
 
 <style scoped>
