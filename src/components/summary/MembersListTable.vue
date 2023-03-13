@@ -1,5 +1,15 @@
 <template>
   <BaseContainer>
+    <SuccessModal
+      v-if="isSuccess"
+      title="Member berhasil dihapus"
+      @close="hideSuccessModal"
+    ></SuccessModal>
+    <DeleteConfirmationModal
+      v-if="isDeleteModalVisible"
+      @confirm="handleDelete"
+      @close="hideDeleteModal"
+    />
     <div class="wrapper">
       <table class="members-list-table">
         <thead>
@@ -21,17 +31,44 @@
 </template>
 
 <script setup>
-import { defineComponent, computed } from 'vue';
+import { ref, defineComponent, computed } from 'vue';
 import MemberRow from './MemberRow.vue';
+import DeleteConfirmationModal from '../modals/DeleteConfirmationModal.vue';
+import SuccessModal from '../modals/SuccessModal.vue';
 import { useStore } from 'vuex';
 
 defineComponent({
   MemberRow,
+  DeleteConfirmationModal,
+  SuccessModal,
 });
 
 const store = useStore();
 
 const members = computed(() => store.getters['members/members']);
+
+const memberCode = ref(null);
+const isSuccess = ref(false);
+const isDeleteModalVisible = ref(false);
+
+const showDeleteModal = ({ code }) => {
+  isDeleteModalVisible.value = true;
+  memberCode.value = code;
+};
+
+const hideDeleteModal = () => (isDeleteModalVisible.value = false);
+
+async function handleDelete() {
+  try {
+    store.dispatch('members/deleteMember', { code: memberCode.value });
+  } catch (error) {}
+
+  isDeleteModalVisible.value = false;
+  showSuccessModal();
+}
+
+const showSuccessModal = () => (isSuccess.value = true);
+const hideSuccessModal = () => (isSuccess.value = false);
 </script>
 
 <style scoped>
