@@ -23,7 +23,17 @@
           </tr>
         </thead>
         <tbody>
-          <MemberRow v-for="member in members" :key="member.id" :="member" />
+          <tr class="member-list-table__row--is-empty" v-if="!members">
+            <td colspan="6">Empty list.</td>
+          </tr>
+          <MemberRow
+            v-else
+            v-for="member in members"
+            :key="member.id"
+            :="member"
+            @delete="showDeleteModal"
+            @success="showSuccessModal"
+          />
         </tbody>
       </table>
     </div>
@@ -96,5 +106,11 @@ const hideSuccessModal = () => (isSuccess.value = false);
   font-weight: 400;
   padding: 12px 8px;
   text-align: left;
+}
+
+.member-list-table__row--is-empty td {
+  color: var(--color-black-muted);
+  text-align: center;
+  padding: 1rem 0;
 }
 </style>
