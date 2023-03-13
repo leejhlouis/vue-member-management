@@ -2,9 +2,9 @@ export default {
   createMember({ members }, payload) {
     members.push(payload);
   },
-  updateMember({ members }, { member }) {
-    const index = members.findIndex((member) => member.code === member.code);
-    members[index] = member;
+  updateMember({ members }, payload) {
+    const index = members.findIndex((member) => member.code === payload.member.code);
+    members[index] = payload.member;
   },
   deleteMember({ members }, { code }) {
     const index = members.findIndex((member) => member.code === code);
