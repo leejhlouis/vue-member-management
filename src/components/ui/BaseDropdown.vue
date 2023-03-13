@@ -9,8 +9,8 @@
     >
       <template #icon>
         <BaseIcon>
-          <ChevronUpIcon v-if="isDropdownVisible" />
-          <ChevronDownIcon v-else />
+          <ChevronUpIcon v-show="isDropdownVisible" />
+          <ChevronDownIcon v-show="!isDropdownVisible" />
         </BaseIcon>
       </template>
       <p>Actions</p>
@@ -35,7 +35,7 @@ const isDropdownVisible = ref(false);
 
 const hideDropdownIfClickedOutside = ({ target }) => {
   if (!dropdown.value.contains(target)) {
-    isDropdownVisible.value = false; 
+    isDropdownVisible.value = false;
     document.removeEventListener('click', hideDropdownIfClickedOutside);
   }
 };
