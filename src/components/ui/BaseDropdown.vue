@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown">
+  <div class="dropdown" ref="dropdown">
     <BaseButton
       class="dropdown__button"
       has-icon
@@ -30,7 +30,17 @@ defineComponent({
   ChevronDownIcon,
 });
 
+const dropdown = ref(null);
 const isDropdownVisible = ref(false);
+
+const hideDropdownIfClickedOutside = ({ target }) => {
+  if (!dropdown.value.contains(target)) {
+    isDropdownVisible.value = false; 
+    document.removeEventListener('click', hideDropdownIfClickedOutside);
+  }
+};
+
+window.addEventListener('click', hideDropdownIfClickedOutside);
 
 const toggleDropdown = () => {
   isDropdownVisible.value = !isDropdownVisible.value;
