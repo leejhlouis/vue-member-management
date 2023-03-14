@@ -67,7 +67,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'onChange']);
 
 const inputtedValue = computed({
   get() {
@@ -101,9 +101,11 @@ const getAutocomplete = (event) => {
   showAutocomplete();
 };
 
-const setItem = (item) => {
-  inputtedValue.value = item.label;
+const setItem = ({ label, code }) => {
+  inputtedValue.value = label;
   hideAutocomplete();
+
+  emit('onChange', { code });
 };
 
 const onArrowUp = () => {

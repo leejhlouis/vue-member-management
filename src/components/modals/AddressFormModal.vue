@@ -12,6 +12,7 @@
           :items="provinces"
           v-model="attributes.province.val"
           :invalid="attributes.province.invalidMessage"
+          @on-change="filterCities"
         />
         <AutocompleteInput
           name="city"
@@ -71,11 +72,17 @@ const attributes = ref({
 });
 
 const store = useStore();
+const provinceCode = ref('');
 
 const provinces = computed(() => store.getters['regions/provinces']);
-const cities = computed(() => store.getters['regions/cities']());
+const cities = computed(() => store.getters['regions/cities'](provinceCode.value));
 
 const title = computed(() => `${props.mode === 'add' ? 'Add' : 'Edit'} address`);
+
+const filterCities = ({ code }) => {
+  provinceCode.value = code;
+  attributes.value.city.val = '';
+};
 
 const close = () => emit('close');
 
