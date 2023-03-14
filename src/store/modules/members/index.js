@@ -15,6 +15,24 @@ export default {
           dob: '2000-01-01',
           gender: 'M',
           profilePicture: 'www.blibli.com/picture/member.jpg',
+          addresses: [
+            {
+              code: 'ADD-00001',
+              label: 'Rumah',
+              address:
+                'Gedung sarana jaya jl. Budi Kemuliaan I no. 1, RT.2/RW.3, Gambir, Central Jakarta City, Jakarta 10110',
+              province: 'DKI JAKARTA',
+              city: 'JAKARTA PUSAT',
+            },
+            {
+              code: 'ADD-00002',
+              label: 'Rumah 2',
+              address:
+                'jl. Budi Kemuliaan I no. 2, RT.2/RW.3, Gambir, Central Jakarta City, Jakarta 10110',
+              province: 'DKI JAKARTA',
+              city: 'JAKARTA PUSAT',
+            },
+          ],
         },
         {
           code: 'MEM-00002',

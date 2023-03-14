@@ -3,46 +3,54 @@
     <AddresssFormModal
       v-if="isEditFormVisible"
       mode="edit"
+      @submit="handleUpdate"
       @close="hideEditAddressForm"
-      @submit="submit"
+    />
+    <DeleteConfirmationModal
+      v-if="isDeleteModalVisible"
+      @confirm="handleDelete"
+      @close="hideDeleteModal"
     />
     <header class="address__header">
-      <h2 class="address__title">Rumah</h2>
+      <h2 class="address__title">{{ label }}</h2>
     </header>
     <div class="address__body">
       <p class="address__content">
-        Gedung Sarana Jaya Jl. Budi Kemuliaan no.1, RT 2/RW 3, Gambir, Jakarta Pusat, Jakarta 10110
+        {{ address }}
       </p>
-      <p class="address__city">Jakarta Pusat, DKI Jakarta</p>
+      <p class="address__location">{{ addressLocation }}</p>
     </div>
     <footer class="address__footer">
       <BaseButton outline @click="showEditAddressForm">Ubah</BaseButton>
-      <BaseButton @click="deleteAddress">Hapus</BaseButton>
+      <BaseButton @click="showDeleteModal">Hapus</BaseButton>
     </footer>
   </li>
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue';
+import { computed, ref, defineComponent } from 'vue';
 import AddresssFormModal from '../modals/AddressFormModal.vue';
+
+const props = defineProps(['code', 'label', 'address', 'province', 'city']);
 
 defineComponent({
   AddresssFormModal,
 });
 
 const isEditFormVisible = ref(false);
+const isDeleteModalVisible = ref(false);
 
-const showEditAddressForm = () => {
-  isEditFormVisible.value = true;
-};
+const addressLocation = computed(() => `${props.city}, ${props.province}`);
 
-const hideEditAddressForm = () => {
-  isEditFormVisible.value = false;
-};
+const showEditAddressForm = () => (isEditFormVisible.value = true);
+const hideEditAddressForm = () => (isEditFormVisible.value = false);
 
-const submit = () => {};
+const showDeleteModal = () => (isDeleteModalVisible.value = true);
+const hideDeleteModal = () => (isDeleteModalVisible.value = false);
 
-const deleteAddress = () => {};
+const handleUpdate = async () => {};
+
+const handleDelete = async () => {};
 </script>
 
 <style scoped>
@@ -76,7 +84,7 @@ const deleteAddress = () => {};
   padding-bottom: 1rem;
 }
 
-.address__city {
+.address__location {
   color: var(--color-black-muted);
 }
 

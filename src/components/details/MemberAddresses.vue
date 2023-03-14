@@ -4,15 +4,14 @@
       v-if="isAddressFormVisible"
       mode="add"
       @close="hideAddAddressForm"
-      @submit="submit"
+      @submit="addNewAddress"
     />
     <div class="member-addresses__header">
       <h1 class="member-addresses__title">Address - {{ code }}</h1>
       <BaseButton @click="showAddAddressForm">Tambah</BaseButton>
     </div>
     <ul class="member-addresses__list">
-      <AddressItem></AddressItem>
-      <AddressItem></AddressItem>
+      <AddressItem v-for="address in addresses" :key="address.code" :="address" />
     </ul>
   </BaseContainer>
 </template>
@@ -20,9 +19,13 @@
 <script setup>
 import AddressItem from './AddressItem.vue';
 import AddresssFormModal from '../modals/AddressFormModal.vue';
-import { ref, defineComponent } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const { code } = defineProps(['code']);
+const addresses = computed(() => store.getters['members/addresses'](code));
 
 defineComponent({
   AddressItem,
@@ -39,7 +42,7 @@ const hideAddAddressForm = () => {
   isAddressFormVisible.value = false;
 };
 
-const submit = () => {};
+const addNewAddress = async () => {};
 </script>
 
 <style scoped>
