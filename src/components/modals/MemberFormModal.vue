@@ -122,7 +122,7 @@ const setInvalid = () => {
 const validate = () => {
   setValid();
 
-  if (!attributes.value.name.val || attributes.value.name.value === '') {
+  if (!attributes.value.name.val || attributes.value.name.val === '') {
     attributes.value.name.isValid = false;
   } else if (!attributes.value.name.val.match(/^[a-z ,.'-]+$/i)) {
     attributes.value.name.isValid = false;
