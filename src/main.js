@@ -12,6 +12,7 @@ import SuccessModal from './components/modals/SuccessModal.vue';
 import BaseForm from './components/ui/BaseForm.vue';
 import BaseInput from './components/ui/inputs/BaseInput.vue';
 import TextFieldInput from './components/ui/inputs/TextFieldInput.vue';
+import AutocompleteInput from './components/ui/inputs/AutocompleteInput.vue';
 import OptionsInput from './components/ui/inputs/OptionsInput.vue';
 import TextAreaInput from './components/ui/inputs/TextAreaInput.vue';
 
@@ -29,6 +30,7 @@ app.component('SuccessModal', SuccessModal);
 app.component('BaseForm', BaseForm);
 app.component('BaseInput', BaseInput);
 app.component('TextFieldInput', TextFieldInput);
+app.component('AutocompleteInput', AutocompleteInput);
 app.component('OptionsInput', OptionsInput);
 app.component('TextAreaInput', TextAreaInput);
 

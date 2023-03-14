@@ -7,10 +7,10 @@
         :class="invalidClass"
         :type="type"
         :placeholder="inputLabel"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        v-model="value"
         :readonly="readonly"
       />
+      <slot></slot>
     </template>
   </BaseInput>
 </template>
@@ -49,7 +49,16 @@ const props = defineProps({
   },
 });
 
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
+
+const value = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit('update:modelValue', value);
+  },
+});
 
 const invalidClass = computed(() => {
   return {

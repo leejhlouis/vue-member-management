@@ -7,14 +7,16 @@
         :invalid="attributes.label.invalidMessage"
       />
       <div class="form__group--flex">
-        <TextFieldInput
+        <AutocompleteInput
           name="province"
-          v-model.trim="attributes.province.val"
+          :items="provinces"
+          v-model="attributes.province.val"
           :invalid="attributes.province.invalidMessage"
         />
-        <TextFieldInput
+        <AutocompleteInput
           name="city"
-          v-model.trim="attributes.city.val"
+          :items="cities"
+          v-model="attributes.city.val"
           :invalid="attributes.city.invalidMessage"
         />
       </div>
@@ -30,6 +32,7 @@
 <script setup>
 import FormModal from '../ui/modals/FormModal.vue';
 import { defineEmits, ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
 const props = defineProps({
   mode: {
@@ -67,11 +70,14 @@ const attributes = ref({
   },
 });
 
+const store = useStore();
+
+const provinces = computed(() => store.getters['regions/provinces']);
+const cities = computed(() => store.getters['regions/cities']());
+
 const title = computed(() => `${props.mode === 'add' ? 'Add' : 'Edit'} address`);
 
-const close = () => {
-  emit('close');
-};
+const close = () => emit('close');
 
 const handleSubmit = () => {
   alert(`${label.value} ${province.value} ${city.value} ${address.value}`);
