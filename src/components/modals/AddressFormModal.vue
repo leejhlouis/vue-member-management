@@ -40,6 +40,11 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  item: {
+    type: Object,
+    required: false,
+    default: null,
+  },
 });
 
 const emit = defineEmits(['close', 'submit']);
@@ -47,25 +52,25 @@ const emit = defineEmits(['close', 'submit']);
 const attributes = ref({
   label: {
     attrName: 'name',
-    val: '',
+    val: !!props.item ? props.item.label : '',
     isValid: true,
     invalidMessage: null,
   },
   province: {
     attrName: 'province',
-    val: '',
+    val: !!props.item ? props.item.province : '',
     isValid: true,
     invalidMessage: null,
   },
   city: {
     attrName: 'city',
-    val: '',
+    val: !!props.item ? props.item.city : '',
     isValid: true,
     invalidMessage: null,
   },
   address: {
     attrName: 'address',
-    val: '',
+    val: !!props.item ? props.item.address : '',
     isValid: true,
     invalidMessage: null,
   },
@@ -134,6 +139,8 @@ const validate = () => {
 
 const handleSubmit = () => {
   validate();
+
+  
 };
 </script>
 

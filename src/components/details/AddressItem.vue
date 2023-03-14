@@ -3,6 +3,7 @@
     <AddresssFormModal
       v-if="isEditFormVisible"
       mode="edit"
+      :item="props"
       @submit="handleUpdate"
       @close="hideEditAddressForm"
     />
