@@ -1,6 +1,6 @@
 <template>
   <FormModal :title="title" @close="close">
-    <BaseForm @submit.prevent="handleSubmit">
+    <BaseForm :can-submit="canSubmit" @submit.prevent="handleSubmit">
       <TextFieldInput
         name="label"
         v-model.trim="attributes.label.val"
@@ -86,8 +86,54 @@ const filterCities = ({ code }) => {
 
 const close = () => emit('close');
 
+const canSubmit = computed(
+  () =>
+    attributes.value.label.val !== '' &&
+    attributes.value.province.val !== '' &&
+    attributes.value.city.val !== '' &&
+    attributes.value.address.val !== '',
+);
+
+const isValid = computed(() => {
+  for (const attr in attributes.value) {
+    if (!attributes.value[attr].isValid) {
+      return false;
+    }
+  }
+
+  return true;
+});
+
+const setValid = () => {
+  for (const attr in attributes.value) {
+    attributes.value[attr].isValid = true;
+    attributes.value[attr].invalidMessage = null;
+  }
+};
+
+const setInvalid = () => {
+  for (const attr in attributes.value) {
+    if (!attributes.value[attr].val || attributes.value[attr].val === '') {
+      attributes.value[attr].isValid = false;
+      attributes.value[
+        attr
+      ].invalidMessage = `The ${attributes.value[attr].attrName} cannot be empty.`;
+    }
+  }
+};
+
+const validate = () => {
+  setValid();
+  setInvalid();
+
+  if (attributes.value.label.isValid && !attributes.value.label.val.match(/^[a-zA-Z0-9]+$/)) {
+    attributes.value.label.isValid = false;
+    attributes.value.label.invalidMessage = 'The name must be filled by alphanumerical characters.';
+  }
+};
+
 const handleSubmit = () => {
-  alert(`${label.value} ${province.value} ${city.value} ${address.value}`);
+  validate();
 };
 </script>
 
