@@ -18,7 +18,7 @@
       <p class="address__content">
         {{ address }}
       </p>
-      <p class="address__location">{{ addressLocation }}</p>
+      <p class="address__region">{{ region }}</p>
     </div>
     <footer class="address__footer">
       <BaseButton outline @click="showEditAddressForm">Ubah</BaseButton>
@@ -40,7 +40,7 @@ defineComponent({
 const isEditFormVisible = ref(false);
 const isDeleteModalVisible = ref(false);
 
-const addressLocation = computed(() => `${props.city}, ${props.province}`);
+const region = computed(() => `${props.city}, ${props.province}`);
 
 const showEditAddressForm = () => (isEditFormVisible.value = true);
 const hideEditAddressForm = () => (isEditFormVisible.value = false);
@@ -84,7 +84,7 @@ const handleDelete = async () => {};
   padding-bottom: 1rem;
 }
 
-.address__location {
+.address__region {
   color: var(--color-black-muted);
 }
 
