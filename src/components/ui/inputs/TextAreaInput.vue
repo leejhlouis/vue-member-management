@@ -61,7 +61,7 @@ const nameWithCapitalizedFirstLetter = computed(
 );
 </script>
 
-<style>
+<style scoped>
 .form__input {
   padding: 0.5rem;
   border-radius: 0.25rem;

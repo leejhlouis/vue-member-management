@@ -68,13 +68,9 @@ const inputLabel = computed(() =>
 const nameWithCapitalizedFirstLetter = computed(
   () => props.name.charAt(0).toUpperCase() + props.name.slice(1),
 );
-
-const changeValue = () => {
-  emit('input', selected);
-};
 </script>
 
-<style>
+<style scoped>
 .form__radio-group {
   display: flex;
   flex-direction: row;

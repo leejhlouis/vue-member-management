@@ -16,7 +16,7 @@ const props = defineProps(['name', 'label', 'invalid']);
 defineEmits(['update:modelValue']);
 </script>
 
-<style>
+<style scoped>
 .form__group {
   display: flex;
   flex-direction: column;
