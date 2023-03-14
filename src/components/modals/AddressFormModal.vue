@@ -1,47 +1,29 @@
 <template>
   <FormModal :title="title" @close="close">
-    <form class="form" @submit.prevent="handleSubmit">
-      <div class="form__group">
-        <label for="label" class="form__label">Label</label>
-        <input
-          id="label"
-          type="text"
-          v-model.trim="label"
-          class="form__input"
-          placeholder="Label"
-        />
-      </div>
+    <BaseForm @submit.prevent="handleSubmit">
+      <TextFieldInput
+        name="label"
+        v-model.trim="attributes.label.val"
+        :invalid="attributes.label.invalidMessage"
+      />
       <div class="form__group--flex">
-        <div class="form__group">
-          <label for="province" class="form__label">Province</label>
-          <input
-            id="province"
-            type="text"
-            v-model.trim="province"
-            class="form__input"
-            placeholder="Province"
-          />
-        </div>
-        <div class="form__group">
-          <label for="city" class="form__label">City</label>
-          <input id="city" type="text" v-model.trim="city" class="form__input" placeholder="City" />
-        </div>
-      </div>
-      <div class="form__group">
-        <label for="address" class="form__label">Address</label>
-        <textarea
-          id="address"
-          rows="5"
-          v-model.trim="address"
-          class="form__input"
-          placeholder="Address"
+        <TextFieldInput
+          name="province"
+          v-model.trim="attributes.province.val"
+          :invalid="attributes.province.invalidMessage"
+        />
+        <TextFieldInput
+          name="city"
+          v-model.trim="attributes.city.val"
+          :invalid="attributes.city.invalidMessage"
         />
       </div>
-
-      <div class="form__actions">
-        <BaseButton>Submit</BaseButton>
-      </div>
-    </form>
+      <TextAreaInput
+        name="address"
+        v-model.trim="attributes.address.val"
+        :invalid="attributes.address.invalidMessage"
+      />
+    </BaseForm>
   </FormModal>
 </template>
 
@@ -58,10 +40,32 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'submit']);
 
-const label = ref('');
-const province = ref('');
-const city = ref('');
-const address = ref('');
+const attributes = ref({
+  label: {
+    attrName: 'name',
+    val: '',
+    isValid: true,
+    invalidMessage: null,
+  },
+  province: {
+    attrName: 'province',
+    val: '',
+    isValid: true,
+    invalidMessage: null,
+  },
+  city: {
+    attrName: 'city',
+    val: '',
+    isValid: true,
+    invalidMessage: null,
+  },
+  address: {
+    attrName: 'address',
+    val: '',
+    isValid: true,
+    invalidMessage: null,
+  },
+});
 
 const title = computed(() => `${props.mode === 'add' ? 'Add' : 'Edit'} address`);
 
@@ -75,57 +79,10 @@ const handleSubmit = () => {
 </script>
 
 <style scoped>
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form__group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 .form__group--flex {
   display: flex;
   gap: 2rem;
   width: 100%;
   box-sizing: border-box;
-}
-
-.form__label {
-  margin-bottom: 0.5rem;
-}
-
-.form__input {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.form__radio-group {
-  display: flex;
-  flex-direction: row;
-}
-
-.form__radio-label {
-  display: flex;
-  align-items: center;
-  margin-right: 1rem;
-}
-
-.form__radio-input {
-  margin-right: 0.5rem;
-}
-
-.form__actions {
-  margin-top: 1.25rem;
-  display: flex;
-  justify-content: end;
-  width: 100%;
 }
 </style>

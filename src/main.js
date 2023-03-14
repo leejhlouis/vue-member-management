@@ -13,6 +13,7 @@ import BaseForm from './components/ui/BaseForm.vue';
 import BaseInput from './components/ui/inputs/BaseInput.vue';
 import TextFieldInput from './components/ui/inputs/TextFieldInput.vue';
 import OptionsInput from './components/ui/inputs/OptionsInput.vue';
+import TextAreaInput from './components/ui/inputs/TextAreaInput.vue';
 
 import './assets/base.css';
 
@@ -29,6 +30,7 @@ app.component('BaseForm', BaseForm);
 app.component('BaseInput', BaseInput);
 app.component('TextFieldInput', TextFieldInput);
 app.component('OptionsInput', OptionsInput);
+app.component('TextAreaInput', TextAreaInput);
 
 app.use(router);
 app.use(store);
