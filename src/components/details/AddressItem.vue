@@ -1,17 +1,5 @@
 <template>
   <li class="address">
-    <AddresssFormModal
-      v-if="isEditFormVisible"
-      mode="edit"
-      :item="props"
-      @submit="handleUpdate"
-      @close="hideEditAddressForm"
-    />
-    <DeleteConfirmationModal
-      v-if="isDeleteModalVisible"
-      @confirm="handleDelete"
-      @close="hideDeleteModal"
-    />
     <header class="address__header">
       <h2 class="address__title">{{ label }}</h2>
     </header>
@@ -22,36 +10,26 @@
       <p class="address__region">{{ region }}</p>
     </div>
     <footer class="address__footer">
-      <BaseButton outline @click="showEditAddressForm">Ubah</BaseButton>
-      <BaseButton @click="showDeleteModal">Hapus</BaseButton>
+      <BaseButton outline @click="handleEdit">Ubah</BaseButton>
+      <BaseButton @click="handleDelete">Hapus</BaseButton>
     </footer>
   </li>
 </template>
 
 <script setup>
-import { computed, ref, defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import AddresssFormModal from '../modals/AddressFormModal.vue';
 
 const props = defineProps(['code', 'label', 'address', 'province', 'city']);
 
-defineComponent({
-  AddresssFormModal,
-});
+const emit = defineEmits(['edit', 'delete']);
 
-const isEditFormVisible = ref(false);
-const isDeleteModalVisible = ref(false);
+defineComponent({ AddresssFormModal });
 
 const region = computed(() => `${props.city}, ${props.province}`);
 
-const showEditAddressForm = () => (isEditFormVisible.value = true);
-const hideEditAddressForm = () => (isEditFormVisible.value = false);
-
-const showDeleteModal = () => (isDeleteModalVisible.value = true);
-const hideDeleteModal = () => (isDeleteModalVisible.value = false);
-
-const handleUpdate = async () => {};
-
-const handleDelete = async () => {};
+const handleEdit = () => emit('edit');
+const handleDelete = () => emit('delete', { code: props.code });
 </script>
 
 <style scoped>

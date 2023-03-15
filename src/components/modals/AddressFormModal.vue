@@ -140,7 +140,16 @@ const validate = () => {
 const handleSubmit = () => {
   validate();
 
-  
+  if (!isValid.value) {
+    return;
+  }
+
+  emit('submit', {
+    label: attributes.value.label.val,
+    province: attributes.value.province.val,
+    city: attributes.value.city.val,
+    address: attributes.value.address.val,
+  });
 };
 </script>
 
