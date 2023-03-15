@@ -10,7 +10,7 @@ const getAddressCode = (addresses) => generateCode('ADD', addresses);
 
 export default {
   async createMember({ getters, commit }, payload) {
-    const code = getMemberCode(getters.members[getters.members.length - 1].code);
+    const code = getMemberCode(getters.members);
     // call api
 
     commit('createMember', { ...payload, code });
