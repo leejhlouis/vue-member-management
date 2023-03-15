@@ -1,5 +1,5 @@
 <template>
-  <BaseModal :maxWidth="540" @close="close">
+  <BaseModal @close="close" size="small">
     <div class="dialog__illustration">
       <slot name="illustration"></slot>
     </div>

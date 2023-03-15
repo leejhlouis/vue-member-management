@@ -1,7 +1,7 @@
 <template>
   <main>
-    <MembersListHeader class="members-list-header" />
-    <MembersListTable class="members-list-table" />
+    <MembersListHeader class="members-summary-header" />
+    <MembersListTable class="members-summary-table" />
   </main>
 </template>
 
@@ -24,8 +24,8 @@ main {
   margin: 2rem 0;
 }
 
-.members-list-header,
-.members-list-table {
+.members-summary-header,
+.members-summary-table {
   width: 100%;
   box-sizing: border-box;
 }

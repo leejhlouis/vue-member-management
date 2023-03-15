@@ -6,7 +6,7 @@
       @confirm="handleDelete"
       @close="hideDeleteModal"
     />
-    <div class="wrapper">
+    <div class="member-list-wrapper">
       <table class="members-list-table">
         <thead class="members-list-table__thead">
           <tr>
@@ -24,6 +24,12 @@
           </tr>
           <MemberRow
             v-else
+            v-for="member in members"
+            :key="member.id"
+            :="member"
+            @delete="showDeleteModal"
+          />
+          <MemberRow
             v-for="member in members"
             :key="member.id"
             :="member"
@@ -74,22 +80,30 @@ const handleDelete = async () => {
 </script>
 
 <style scoped>
-.wrapper {
-  /* overflow-x: scroll;
-  overflow-y: visible !important; */
+.member-list-wrapper {
+  overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   margin: 1rem 0;
+  height: fit-content;
+  max-height: calc(100vh - 14rem);
 }
 
-.wrapper::-webkit-scrollbar {
+.member-list-wrapper::-webkit-scrollbar {
   display: none;
 }
 
 .members-list-table {
   border-collapse: collapse;
   width: 100%;
+  min-width: 1024px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+  .members-list-table {
+    min-width: 768px;
+  }
 }
 
 .members-list-table__thead {

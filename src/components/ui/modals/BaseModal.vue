@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div class="backdrop" @click="close"></div>
-    <dialog open class="dialog" :style="maxWidthStyle">
+    <dialog open class="dialog" :class="dialogSizeClass">
       <section class="dialog__wrapper">
         <slot></slot>
       </section>
@@ -10,26 +10,23 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { defineEmits, defineProps } from 'vue';
-
-const emit = defineEmits(['close']);
+import { defineProps, defineEmits, computed } from 'vue';
 
 const props = defineProps({
-  maxWidth: {
-    type: Number,
+  size: {
+    type: String,
     required: false,
-    default: 786,
+    default: 'normal',
   },
 });
 
-const close = () => {
-  emit('close');
-};
+const emit = defineEmits(['close']);
+const close = () => emit('close');
 
-const maxWidthStyle = computed(() => {
+const dialogSizeClass = computed(() => {
   return {
-    maxWidth: props.maxWidth + 'px',
+    'dialog--normal': props.size === 'normal',
+    'dialog--sm': props.size === 'small',
   };
 });
 </script>
@@ -49,7 +46,7 @@ const maxWidthStyle = computed(() => {
   position: fixed;
   top: 10vh;
   margin: 0 auto;
-  width: 100%;
+  width: calc(100% - 2rem);
   max-height: 80vh;
   z-index: 101;
   border-radius: 8px;
@@ -58,8 +55,34 @@ const maxWidthStyle = computed(() => {
   overflow-y: auto;
   background-color: var(--color-white);
 }
+.dialog--normal {
+  max-width: 768px;
+}
+
+.dialog--sm {
+  max-width: 540px;
+}
 
 .dialog__wrapper {
   padding: 2.5rem;
+}
+
+@media screen and (max-width: 767px) {
+  .dialog {
+    border-radius: 6px;
+  }
+  .dialog__wrapper {
+    padding: 1.5rem;
+  }
+
+  .dialog--sm {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .dialog--sm {
+    max-width: 360px;
+  }
 }
 </style>
