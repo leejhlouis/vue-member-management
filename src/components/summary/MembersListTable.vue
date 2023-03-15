@@ -32,7 +32,6 @@
             :key="member.id"
             :="member"
             @delete="showDeleteModal"
-            @success="showSuccessModal"
           />
         </tbody>
       </table>

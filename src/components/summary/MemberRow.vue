@@ -20,7 +20,7 @@
 import { computed } from 'vue';
 
 const props = defineProps(['code', 'name', 'email', 'phone', 'dob', 'gender', 'profilePicture']);
-const emit = defineEmits(['delete', 'success']);
+const emit = defineEmits(['delete']);
 
 const detailsLink = computed(() => `/members/${props.code}`);
 
