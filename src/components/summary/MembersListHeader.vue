@@ -1,6 +1,10 @@
 <template>
   <div>
-    <SuccessModal v-if="isSuccess" title="Member berhasil ditambah" @close="hideSuccessModal" />
+    <SuccessAlertModal
+      v-if="isSuccess"
+      title="Member berhasil ditambah"
+      @close="hideSuccessModal"
+    />
     <MemberFormModal v-if="isMemberFormVisible" @close="hideMemberForm" @submit="createNewMember" />
     <BaseContainer class="member-summary">
       <h1 class="member-summary__title">Members</h1>

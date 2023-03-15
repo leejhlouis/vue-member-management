@@ -17,14 +17,11 @@
 </template>
 
 <script setup>
-import { computed, defineComponent } from 'vue';
-import AddresssFormModal from '../modals/AddressFormModal.vue';
+import { computed } from 'vue';
 
 const props = defineProps(['code', 'label', 'address', 'province', 'city']);
 
 const emit = defineEmits(['edit', 'delete']);
-
-defineComponent({ AddresssFormModal });
 
 const region = computed(() => `${props.city}, ${props.province}`);
 

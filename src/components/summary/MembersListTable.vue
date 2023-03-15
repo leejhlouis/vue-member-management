@@ -1,11 +1,7 @@
 <template>
   <BaseContainer>
-    <SuccessModal
-      v-if="isSuccess"
-      title="Member berhasil dihapus"
-      @close="hideSuccessModal"
-    ></SuccessModal>
-    <DeleteConfirmationModal
+    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="hideSuccessModal" />
+    <DeleteAlertModal
       v-if="isDeleteModalVisible"
       @confirm="handleDelete"
       @close="hideDeleteModal"

@@ -1,10 +1,10 @@
 <template>
   <BaseContainer class="member-profile">
-    <SuccessModal
+    <SuccessAlertModal
       v-if="isUpdateSuccess"
       title="Member berhasil diubah"
       @close="hideSuccessModal"
-    ></SuccessModal>
+    />
     <div class="member-profile__header">
       <h1 class="member-profile__title">{{ title }}</h1>
       <BaseButton v-if="!isEditing" @click="enableEditing">Edit</BaseButton>

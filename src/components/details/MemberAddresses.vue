@@ -1,6 +1,6 @@
 <template>
   <BaseContainer class="member-addresses">
-    <SuccessModal v-if="isSuccess" :title="successMessage" @close="hideSuccessModal" />
+    <SuccessAlertModal v-if="isSuccess" :title="successMessage" @close="hideSuccessModal" />
     <AddresssFormModal
       v-if="isAddressFormVisible"
       :mode="formMode"
@@ -8,7 +8,7 @@
       @close="hideAddressForm"
       @submit="submitAddressForm"
     />
-    <DeleteConfirmationModal
+    <DeleteAlertModal
       v-if="isDeleteModalVisible"
       @close="hideDeleteModal"
       @confirm="deleteAddress"

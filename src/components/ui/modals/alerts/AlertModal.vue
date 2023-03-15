@@ -33,13 +33,8 @@ defineProps({
 
 const emit = defineEmits(['close', 'confirm']);
 
-const close = () => {
-  emit('close');
-};
-
-const confirm = () => {
-  emit('confirm');
-};
+const close = () => emit('close');
+const confirm = () => emit('confirm');
 </script>
 
 <style scoped>
