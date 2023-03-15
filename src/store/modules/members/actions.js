@@ -1,10 +1,18 @@
+const generateMemberCode = (lastCode) => {
+  const codeNum = parseInt(lastCode.split('-')[1]) + 1;
+  const generatedCode = 'MEM-' + codeNum.toString().padStart(5, '0');
+
+  return generatedCode;
+};
+
 export default {
-  async createMember({ commit }, payload) {
+  async createMember({ getters, commit }, payload) {
+    const code = generateMemberCode(getters.members[getters.members.length - 1].code);
     // call api
 
     commit('createMember', {
       ...payload,
-      code: 'dummy_code',
+      code: code,
     });
   },
   async updateMember({ commit }, payload) {
