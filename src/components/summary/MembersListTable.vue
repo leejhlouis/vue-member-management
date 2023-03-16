@@ -19,13 +19,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="member-list-table__row--is-empty" v-if="!members">
+          <tr class="member-list-table__row--is-empty" v-if="isLoading">
+            <td colspan="6">Loading...</td>
+          </tr>
+          <tr class="member-list-table__row--is-empty" v-else-if="!members">
             <td colspan="6">Empty list.</td>
           </tr>
           <MemberRow
             v-else
             v-for="member in members"
-            :key="member.id"
+            :key="member.code"
             :="member"
             @delete="showDeleteModal"
           />
@@ -45,6 +48,22 @@ defineComponent({
 });
 
 const store = useStore();
+
+const isLoading = ref(true);
+
+const loadMembers = async () => {
+  isLoading.value = true;
+
+  try {
+    await store.dispatch('members/loadMembers');
+  } catch (error) {
+    console.log(error);
+  }
+
+  isLoading.value = false;
+};
+
+loadMembers();
 
 const members = computed(() => store.getters['members/members']);
 
