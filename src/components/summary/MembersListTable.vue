@@ -29,12 +29,6 @@
             :="member"
             @delete="showDeleteModal"
           />
-          <MemberRow
-            v-for="member in members"
-            :key="member.id"
-            :="member"
-            @delete="showDeleteModal"
-          />
         </tbody>
       </table>
     </div>
@@ -84,9 +78,9 @@ const handleDelete = async () => {
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  margin: 1rem 0;
+  margin-top: 1rem;
   height: fit-content;
-  max-height: calc(100vh - 14rem);
+  max-height: calc(100vh);
 }
 
 .member-list-wrapper::-webkit-scrollbar {

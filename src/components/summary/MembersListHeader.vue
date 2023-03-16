@@ -49,6 +49,10 @@ const createNewMember = async (data) => {
 </script>
 
 <style scoped>
+.member-summary {
+  width: 100%;
+}
+
 .member-summary__title {
   font-weight: 500;
   font-size: 1.25rem;

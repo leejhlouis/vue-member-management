@@ -1,5 +1,5 @@
 <template>
-  <BaseContainer class="member-profile">
+  <div class="member-profile">
     <SuccessAlertModal
       v-if="isUpdateSuccess"
       title="Member berhasil diubah"
@@ -51,7 +51,7 @@
         :readonly="!isEditing"
       />
     </BaseForm>
-  </BaseContainer>
+  </div>
 </template>
 
 <script setup>
@@ -210,14 +210,11 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-.member-profile {
-  width: 100%;
-}
 .member-profile__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5rem 0;
+  padding: 1.5rem 0;
 }
 .member-profile__title {
   font-weight: 500;

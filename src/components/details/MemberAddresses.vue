@@ -1,5 +1,5 @@
 <template>
-  <BaseContainer class="member-addresses">
+  <div class="member-addresses">
     <SuccessAlertModal v-if="isSuccess" :title="successMessage" @close="hideSuccessModal" />
     <AddresssFormModal
       v-if="isAddressFormVisible"
@@ -27,7 +27,7 @@
         @delete="showDeleteModal"
       />
     </ul>
-  </BaseContainer>
+  </div>
 </template>
 
 <script setup>
@@ -126,15 +126,11 @@ const deleteAddress = async () => {
 </script>
 
 <style scoped>
-.member-addresses {
-  width: 100%;
-}
-
 .member-addresses__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5rem 0;
+  padding: 1.5rem 0;
 }
 .member-addresses__title {
   font-weight: 500;

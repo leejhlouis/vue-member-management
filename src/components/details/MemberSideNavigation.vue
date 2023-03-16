@@ -5,13 +5,13 @@
     </div>
     <ul class="sidenav__list">
       <li class="sidenav__list-item-wrapper">
-        <RouterLink class="sidenav__list-item" :to="profileNavLink">
+        <RouterLink class="sidenav__list-item" :to="profileNavLink" @click="onClick">
           <BaseIcon><UserIcon /></BaseIcon>
           <p>Profile</p>
         </RouterLink>
       </li>
       <li class="sidenav__list-item-wrapper">
-        <RouterLink class="sidenav__list-item" :to="addressNavLink">
+        <RouterLink class="sidenav__list-item" :to="addressNavLink" @click="onClick">
           <BaseIcon><MapPinIcon /></BaseIcon>
           <p>Addresses</p>
         </RouterLink>
@@ -40,12 +40,16 @@ defineComponent({
 
 const profileNavLink = computed(() => `/members/${code}/profile`);
 const addressNavLink = computed(() => `/members/${code}/addresses`);
+
+const emit = defineEmits(['onClick']);
+const onClick = () => emit('onClick');
 </script>
 
 <style scoped>
 .sidenav {
   background: var(--color-primary);
-  height: calc(100vh - 56px);
+  height: 100vh;
+  max-height: calc(100vh - (56px));
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -56,10 +60,16 @@ const addressNavLink = computed(() => `/members/${code}/addresses`);
   display: none;
 }
 
+.sidenav__profpic--wrapper,
+.sidenav__list {
+  width: 100%;
+}
+
 .sidenav__profpic--wrapper {
   display: flex;
   justify-content: center;
-  margin: 1.5rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .sidenav__profpic--picture {
@@ -85,5 +95,18 @@ const addressNavLink = computed(() => `/members/${code}/addresses`);
 .sidenav__list-item:hover,
 .sidenav__list-item.router-link-exact-active {
   background: rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 767px) {
+  .sidenav {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 539px) {
+  .sidenav {
+    position: fixed;
+    z-index: 10;
+  }
 }
 </style>
