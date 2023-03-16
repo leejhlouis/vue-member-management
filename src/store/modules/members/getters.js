@@ -2,11 +2,9 @@ export default {
   members({ members }) {
     return members;
   },
-  getMemberByCode:
-    ({ members }) =>
-    (code) => {
-      return members.find((member) => member.code === code);
-    },
+  details({ details }) {
+    return details;
+  },
   addresses: (_, getters) => (code) => {
     return getters.getMemberByCode(code).addresses;
   },

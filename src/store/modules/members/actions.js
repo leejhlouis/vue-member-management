@@ -20,6 +20,15 @@ export default {
       throw new Error(error);
     }
   },
+  async loadMemberDetails({ commit }, { memberCode }) {
+    try {
+      const response = await axios.get(`/backend/member/${memberCode}`);
+
+      commit('loadMemberDetails', response.data.data[0]);
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
   async createMember({ getters, commit }, payload) {
     const code = getMemberCode(getters.members);
     // call api

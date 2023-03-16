@@ -6,6 +6,9 @@ export default {
   setMembers(state, payload) {
     state.members = payload;
   },
+  loadMemberDetails(state, payload) {
+    state.details = payload;
+  },
   createMember({ members }, payload) {
     members.push(payload);
   },
