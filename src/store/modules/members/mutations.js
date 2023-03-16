@@ -8,7 +8,12 @@ export default {
   },
   updateMember({ members }, payload) {
     const index = getIndex(members, payload.code);
-    members[index] = payload;
+    const oldData = members[index];
+
+    members[index] = {
+      ...oldData,
+      ...payload,
+    };
   },
   deleteMember({ members }, { code }) {
     const index = getIndex(members, code);
