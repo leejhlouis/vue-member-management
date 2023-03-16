@@ -39,10 +39,12 @@ const hideSuccessModal = () => (isSuccess.value = false);
 
 const createNewMember = async (data) => {
   try {
-    store.dispatch('members/createMember', data);
+    await store.dispatch('members/createMember', data);
 
     showSuccessModal();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 
   hideMemberForm();
 };

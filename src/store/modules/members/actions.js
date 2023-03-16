@@ -31,9 +31,19 @@ export default {
   },
   async createMember({ getters, commit }, payload) {
     const code = getMemberCode(getters.members);
-    // call api
 
-    commit('createMember', { ...payload, code });
+    const data = {
+      ...payload,
+      code,
+    };
+
+    try {
+      await axios.post(`/backend/member`, data);
+
+      commit('createMember', data);
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async updateMember({ commit }, payload) {
     // call api

@@ -57,7 +57,7 @@ const loadMembers = async () => {
   try {
     await store.dispatch('members/loadMembers');
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   isLoading.value = false;
@@ -102,9 +102,9 @@ const handleDelete = async () => {
   max-height: calc(100vh);
 }
 
-.member-list-wrapper::-webkit-scrollbar {
+/* .member-list-wrapper::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .members-list-table {
   border-collapse: collapse;
