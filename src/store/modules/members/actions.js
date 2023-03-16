@@ -50,10 +50,14 @@ export default {
 
     commit('updateMember', { ...payload });
   },
-  async deleteMember({ commit }, payload) {
-    // call api
+  async deleteMember({ commit }, { memberCode }) {
+    try {
+      const res = await axios.delete(`/backend/member/${memberCode}`);
 
-    commit('deleteMember', { ...payload });
+      commit('deleteMember', { memberCode });
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async addAddress({ getters, commit }, { newAddress, memberCode }) {
     const code = getAddressCode(getters.getMemberByCode(memberCode).addresses);

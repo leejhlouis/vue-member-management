@@ -83,10 +83,12 @@ const hideSuccessModal = () => (isSuccess.value = false);
 
 const handleDelete = async () => {
   try {
-    await store.dispatch('members/deleteMember', { code: memberCode.value });
+    await store.dispatch('members/deleteMember', { memberCode: memberCode.value });
 
     showSuccessModal();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 
   hideDeleteModal();
 };
