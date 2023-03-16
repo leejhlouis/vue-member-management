@@ -3,6 +3,9 @@ const getIndex = (array, code) => {
 };
 
 export default {
+  setMembers(state, payload) {
+    state.members = payload;
+  },
   createMember({ members }, payload) {
     members.push(payload);
   },

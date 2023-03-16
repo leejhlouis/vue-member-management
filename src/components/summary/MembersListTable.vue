@@ -19,7 +19,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="member-list-table__row--is-empty" v-if="!members">
+          <tr class="member-list-table__row--is-empty" v-if="isLoading">
+            <td colspan="6">Loading...</td>
+          </tr>
+          <tr class="member-list-table__row--is-empty" v-else-if="!members">
             <td colspan="6">Empty list.</td>
           </tr>
           <MemberRow
@@ -45,6 +48,23 @@ defineComponent({
 });
 
 const store = useStore();
+
+const isLoading = ref(true);
+
+const loadMembers = async () => {
+  isLoading.value = true;
+
+  store.dispatch('members/loadMembers', {
+    success() {
+      isLoading.value = false;
+    },
+    fail() {
+      isLoading.value = false;
+    },
+  });
+};
+
+loadMembers();
 
 const members = computed(() => store.getters['members/members']);
 
