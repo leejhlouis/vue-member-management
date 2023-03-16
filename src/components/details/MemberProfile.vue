@@ -7,7 +7,14 @@
     />
     <div class="member-profile__header">
       <h1 class="member-profile__title">{{ title }}</h1>
-      <BaseButton v-if="!isEditing" @click="enableEditing">Edit</BaseButton>
+      <BaseButton v-if="!isEditing" has-icon @click="enableEditing">
+        <template #icon>
+          <BaseIcon>
+            <PencilIcon />
+          </BaseIcon>
+        </template>
+        Edit
+      </BaseButton>
     </div>
     <BaseForm :submit="isEditing" :can-submit="canSubmit" @submit.prevent="handleSubmit">
       <TextFieldInput
@@ -55,8 +62,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import { PencilIcon } from '@heroicons/vue/24/solid';
+
+defineComponent({ PencilIcon });
 
 const store = useStore();
 

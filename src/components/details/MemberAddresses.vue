@@ -15,7 +15,12 @@
     />
     <div class="member-addresses__header">
       <h1 class="member-addresses__title">Address - {{ code }}</h1>
-      <BaseButton @click="showAddressForm('add')">Tambah</BaseButton>
+      <BaseButton has-icon @click="showAddressForm('add')">
+        <template #icon>
+          <BaseIcon> <PlusIcon /></BaseIcon>
+        </template>
+        Tambah
+      </BaseButton>
     </div>
     <div v-if="isAddressEmpty" class="member-addresses__list--no-address">No address found.</div>
     <ul v-else class="member-addresses__list">
@@ -33,6 +38,7 @@
 <script setup>
 import AddressItem from './AddressItem.vue';
 import AddresssFormModal from '../modals/AddressFormModal.vue';
+import { PlusIcon } from '@heroicons/vue/24/solid';
 import { ref, computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
@@ -44,6 +50,7 @@ const addresses = computed(() => store.getters['members/addresses'](props.code))
 defineComponent({
   AddressItem,
   AddresssFormModal,
+  PlusIcon,
 });
 
 const isAddressEmpty = computed(() => !addresses.value || addresses.value.length === 0);
