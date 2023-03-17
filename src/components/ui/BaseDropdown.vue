@@ -9,10 +9,12 @@
       </template>
       <p>Actions</p>
     </BaseButton>
-    <div class="dropdown__menu-container">
-      <ul class="dropdown__menu">
-        <slot></slot>
-      </ul>
+    <div class="dropdown__content">
+      <div class="dropdown__menu-container">
+        <ul class="dropdown__menu">
+          <slot></slot>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +31,9 @@ defineComponent({
 
 <style scoped>
 .dropdown {
+  width: fit-content;
+}
+.dropdown__content {
   position: relative;
 }
 
@@ -54,6 +59,7 @@ defineComponent({
   position: absolute;
   z-index: 10;
   width: fit-content;
+  right: 0;
 }
 
 .dropdown__menu {

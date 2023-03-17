@@ -101,7 +101,7 @@ const deleteMember = async () => {
 
 .members-list-table {
   border-collapse: collapse;
-  width: 100%;
+  width: auto;
   min-width: 1024px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
