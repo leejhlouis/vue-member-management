@@ -1,6 +1,6 @@
 export default {
   provinces({ regions }) {
-    return regions.filter((region) => region.type === 'PROVINCE');
+    return regions.filter((region) => region.type === 'PROVINCE' && region.parentCode === '');
   },
   cities:
     ({ regions }) =>
