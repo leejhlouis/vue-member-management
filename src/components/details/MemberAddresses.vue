@@ -1,7 +1,6 @@
 <template>
-  <div class="member-addresses">
-    <div v-if="!isLoading">
-      <SuccessAlertModal v-if="isSuccess" :title="successMessage" @close="handleSuccess" />
+  <div>
+    <div v-if="!isLoadingAddresses" class="member-addresses">
       <AddresssFormModal
         v-if="isAddressFormVisible"
         :mode="formMode"
@@ -14,6 +13,8 @@
         @close="hideDeleteModal"
         @confirm="deleteAddress"
       />
+      <LoadingModal v-if="isSubmitting" />
+      <SuccessAlertModal v-if="isSuccess" :title="successMessage" @close="handleSuccess" />
       <div class="member-addresses__header">
         <h1 class="member-addresses__title">Address - {{ code }}</h1>
         <BaseButton has-icon @click="showAddressForm('add')">
@@ -34,7 +35,7 @@
         />
       </ul>
     </div>
-    <div v-else class="member-addresses--loading">Loading...</div>
+    <BaseLoading v-else />
   </div>
 </template>
 
@@ -54,12 +55,13 @@ defineComponent({
 const { code } = defineProps(['code']);
 const store = useStore();
 
-const isLoading = ref(false);
+const isLoadingAddresses = ref(false);
+const isSubmitting = ref(false);
 
 const addresses = computed(() => store.getters['addresses/addresses']);
 
 const loadAddresses = async () => {
-  isLoading.value = true;
+  isLoadingAddresses.value = true;
 
   try {
     await store.dispatch('addresses/loadAddresses', { memberCode: code });
@@ -67,7 +69,7 @@ const loadAddresses = async () => {
     console.error(error);
   }
 
-  isLoading.value = false;
+  isLoadingAddresses.value = false;
 };
 
 loadAddresses();
@@ -139,31 +141,36 @@ const editAddress = async (data) => {
   }
 };
 
-const submitAddressForm = (data) => {
+const submitAddressForm = async (data) => {
+  hideAddressForm();
+  isSubmitting.value = true;
+
   if (formMode.value === 'add') {
-    addAddress(data);
+    await addAddress(data);
   } else if (formMode.value === 'edit') {
-    editAddress(data);
+    await editAddress(data);
   } else {
     return;
   }
 
-  hideAddressForm();
+  isSubmitting.value = false;
 };
 
 const deleteAddress = async () => {
+  hideDeleteModal();
+  isSubmitting.value = true;
+
   try {
     await store.dispatch('addresses/deleteAddress', {
       addressCode: addressCode.value,
       memberCode: code,
     });
 
+    isSubmitting.value = false;
     showSuccessModal('dihapus');
   } catch (error) {
     console.error(error);
   }
-
-  hideDeleteModal();
 };
 
 const handleSuccess = () => {
@@ -173,6 +180,10 @@ const handleSuccess = () => {
 </script>
 
 <style scoped>
+.member-addresses {
+  padding-bottom: 2rem;
+}
+
 .member-addresses__header,
 .member-addresses--loading {
   display: flex;
