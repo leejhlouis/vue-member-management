@@ -38,7 +38,7 @@ export default {
     };
 
     try {
-      await axios.post(`/backend/member`, data);
+      await axios.post('/backend/member', data);
 
       commit('createMember', data);
     } catch (error) {
@@ -46,9 +46,15 @@ export default {
     }
   },
   async updateMember({ commit }, payload) {
-    // call api
+    try {
+      const response = await axios.put(`/backend/member/${payload.code}`, payload);
 
-    commit('updateMember', { ...payload });
+      commit('updateMember', payload);
+
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async deleteMember({ commit }, { memberCode }) {
     try {

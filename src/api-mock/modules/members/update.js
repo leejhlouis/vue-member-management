@@ -8,7 +8,7 @@ export default [
         name: 'Updated name',
         email: 'john.doe@gdn-commerce.com',
         phone: '0123456789',
-        dob: '01 January 2021',
+        dob: '2021-01-01',
         gender: 'M',
         profilePicture: 'www.blibli.com/picture/member.jpg',
       },

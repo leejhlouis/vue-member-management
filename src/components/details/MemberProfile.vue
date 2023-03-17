@@ -110,9 +110,9 @@ const store = useStore();
 const isLoading = ref(false);
 const details = computed(() => store.getters['members/details']);
 
-const autofillFormValues = () => {
+const autofillFormValues = (arr) => {
   for (const attr in attributes.value) {
-    attributes.value[attr].val = details.value[attr];
+    attributes.value[attr].val = arr[attr];
   }
 };
 
@@ -122,7 +122,7 @@ const loadMemberDetails = async () => {
   try {
     await store.dispatch('members/loadMemberDetails', { memberCode: code });
 
-    autofillFormValues();
+    autofillFormValues(details.value);
   } catch (error) {
     console.error(error);
   }
@@ -230,7 +230,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    await store.dispatch('members/updateMember', {
+    const response = await store.dispatch('members/updateMember', {
       code: code,
       name: attributes.value.name.val,
       email: attributes.value.email.val,
@@ -238,6 +238,8 @@ const handleSubmit = async () => {
       dob: attributes.value.dob.val,
       gender: attributes.value.gender.val,
     });
+
+    autofillFormValues(response.data.data);
 
     disableEditing();
     showSuccessModal();
