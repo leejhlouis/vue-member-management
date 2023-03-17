@@ -79,9 +79,7 @@ const attributes = ref({
   },
 });
 
-const close = () => {
-  emit('close');
-};
+const close = () => emit('close');
 
 const canSubmit = computed(
   () =>

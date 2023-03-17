@@ -23,10 +23,7 @@ const props = defineProps(['code', 'name', 'email', 'phone', 'dob', 'gender', 'p
 const emit = defineEmits(['delete']);
 
 const detailsLink = computed(() => `/members/${props.code}`);
-
-const attemptDelete = () => {
-  emit('delete', { code: props.code });
-};
+const attemptDelete = () => emit('delete');
 </script>
 
 <style scoped>

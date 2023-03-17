@@ -1,14 +1,10 @@
 <template>
   <div>
-    <SuccessAlertModal
-      v-if="isSuccess"
-      title="Member berhasil ditambah"
-      @close="hideSuccessModal"
-    />
+    <SuccessAlertModal v-if="isSuccess" title="Member berhasil ditambah" @close="handleSuccess" />
     <MemberFormModal v-if="isMemberFormVisible" @close="hideMemberForm" @submit="createNewMember" />
     <BaseContainer class="member-summary">
       <h1 class="member-summary__title">Members</h1>
-      <BaseButton mode="primary" has-icon @click="showCreateModal">
+      <BaseButton mode="primary" has-icon @click="showMemberForm">
         <template #icon>
           <BaseIcon> <PlusIcon /></BaseIcon>
         </template>
@@ -28,10 +24,12 @@ const store = useStore();
 
 defineComponent({ MemberFormModal, PlusIcon });
 
+const emit = defineEmits(['onMemberCreated']);
+
 const isMemberFormVisible = ref(false);
 const isSuccess = ref(false);
 
-const showCreateModal = () => (isMemberFormVisible.value = true);
+const showMemberForm = () => (isMemberFormVisible.value = true);
 const hideMemberForm = () => (isMemberFormVisible.value = false);
 
 const showSuccessModal = () => (isSuccess.value = true);
@@ -39,12 +37,19 @@ const hideSuccessModal = () => (isSuccess.value = false);
 
 const createNewMember = async (data) => {
   try {
-    store.dispatch('members/createMember', data);
+    await store.dispatch('members/createMember', data);
 
     showSuccessModal();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 
   hideMemberForm();
+};
+
+const handleSuccess = () => {
+  hideSuccessModal();
+  emit('onMemberCreated');
 };
 </script>
 

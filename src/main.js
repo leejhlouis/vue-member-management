@@ -17,6 +17,8 @@ import AutocompleteInput from './components/ui/inputs/AutocompleteInput.vue';
 import OptionsInput from './components/ui/inputs/OptionsInput.vue';
 import TextAreaInput from './components/ui/inputs/TextAreaInput.vue';
 
+import './api-mock/index';
+
 import './assets/base.css';
 
 const app = createApp(App);

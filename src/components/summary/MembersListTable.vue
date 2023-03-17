@@ -1,9 +1,9 @@
 <template>
   <BaseContainer>
-    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="hideSuccessModal" />
+    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="handleSuccess" />
     <DeleteAlertModal
       v-if="isDeleteModalVisible"
-      @confirm="handleDelete"
+      @confirm="deleteMember"
       @close="hideDeleteModal"
     />
     <div class="member-list-wrapper">
@@ -19,15 +19,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="member-list-table__row--is-empty" v-if="!members">
+          <tr class="member-list-table__row--is-empty" v-if="isLoading">
+            <td colspan="6">Loading...</td>
+          </tr>
+          <tr class="member-list-table__row--is-empty" v-else-if="!members">
             <td colspan="6">Empty list.</td>
           </tr>
           <MemberRow
             v-else
             v-for="member in members"
-            :key="member.id"
+            :key="member.code"
             :="member"
-            @delete="showDeleteModal"
+            @delete="handleDelete(member.code)"
           />
         </tbody>
       </table>
@@ -36,38 +39,47 @@
 </template>
 
 <script setup>
-import { ref, defineComponent, computed } from 'vue';
+import { ref, defineComponent, inject } from 'vue';
 import MemberRow from './MemberRow.vue';
 import { useStore } from 'vuex';
 
-defineComponent({
-  MemberRow,
-});
-
 const store = useStore();
 
-const members = computed(() => store.getters['members/members']);
+defineComponent({ MemberRow });
+
+const emit = defineEmits(['onMemberDeleted']);
+
+const isLoading = inject('isLoading');
+const members = inject('members');
 
 const memberCode = ref(null);
 const isSuccess = ref(false);
 const isDeleteModalVisible = ref(false);
 
-const showDeleteModal = ({ code }) => {
-  isDeleteModalVisible.value = true;
-  memberCode.value = code;
-};
-
+const showDeleteModal = () => (isDeleteModalVisible.value = true);
 const hideDeleteModal = () => (isDeleteModalVisible.value = false);
 
 const showSuccessModal = () => (isSuccess.value = true);
 const hideSuccessModal = () => (isSuccess.value = false);
 
-const handleDelete = async () => {
+const handleDelete = (code) => {
+  showDeleteModal();
+  memberCode.value = code;
+};
+
+const handleSuccess = () => {
+  hideSuccessModal();
+  emit('onMemberDeleted');
+};
+
+const deleteMember = async () => {
   try {
-    await store.dispatch('members/deleteMember', { code: memberCode.value });
+    await store.dispatch('members/deleteMember', { memberCode: memberCode.value });
 
     showSuccessModal();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 
   hideDeleteModal();
 };
@@ -83,9 +95,9 @@ const handleDelete = async () => {
   max-height: calc(100vh);
 }
 
-.member-list-wrapper::-webkit-scrollbar {
+/* .member-list-wrapper::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .members-list-table {
   border-collapse: collapse;

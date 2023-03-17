@@ -30,7 +30,7 @@ defineComponent({
   TheFooter,
 });
 
-const isSideNavVisible = ref(true);
+const isSideNavVisible = ref(window.innerWidth >= 540);
 
 const onResize = () => {
   if (window.innerWidth >= 1024) {
