@@ -5,7 +5,4 @@ export default {
   details({ details }) {
     return details;
   },
-  addresses: (_, getters) => (code) => {
-    return getters.getMemberByCode(code).addresses;
-  },
 };

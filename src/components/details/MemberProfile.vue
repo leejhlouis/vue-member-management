@@ -60,7 +60,7 @@
         />
       </BaseForm>
     </div>
-    <div v-if="isLoading" class="member-profile--loading">Loading...</div>
+    <div v-else class="member-profile--loading">Loading...</div>
   </div>
 </template>
 
@@ -230,7 +230,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await store.dispatch('members/updateMember', {
+    await store.dispatch('members/updateMember', {
       code: code,
       name: attributes.value.name.val,
       email: attributes.value.email.val,
@@ -238,12 +238,14 @@ const handleSubmit = async () => {
       dob: attributes.value.dob.val,
       gender: attributes.value.gender.val,
     });
-
-    autofillFormValues(response.data.data);
+    
+    autofillFormValues(details.value);
 
     disableEditing();
     showSuccessModal();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 
