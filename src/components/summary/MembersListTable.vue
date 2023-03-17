@@ -88,21 +88,34 @@ const deleteMember = async () => {
 <style scoped>
 .member-list-wrapper {
   overflow: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   margin-top: 1rem;
   height: fit-content;
-  max-height: calc(100vh);
+  min-height: 240px;
+  max-height: calc(100vh - (56px + 48px + 5.5rem + 72px));
 }
 
 .member-list-wrapper::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+  height: 8px;
+}
+
+.member-list-wrapper::-webkit-scrollbar-track {
+  background: var(--color-white-muted);
+}
+
+.member-list-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 16px;
+}
+
+.member-list-wrapper::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
 }
 
 .members-list-table {
   border-collapse: collapse;
   width: auto;
-  min-width: 1024px;
+  min-width: 1016px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 

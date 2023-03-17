@@ -7,7 +7,7 @@
     </main>
     <BaseLoading class="loading" v-else>Loading...</BaseLoading>
   </div>
-  <TheFooter />
+  <TheFooter class="footer" />
 </template>
 
 <script setup>
@@ -53,7 +53,10 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  margin-top: 2rem;
+  padding-top: 2rem;
+  min-height: 100%;
+  max-height: calc(100vh - (56px + 48px + 2rem));
+  overflow: auto;
 }
 
 .members-summary-header {

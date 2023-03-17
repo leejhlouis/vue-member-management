@@ -8,6 +8,7 @@
 
 <style scoped>
 .footer {
+  background: var(--color-white);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   height: 47px;
   display: flex;
