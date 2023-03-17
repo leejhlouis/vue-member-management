@@ -8,9 +8,11 @@
     <td class="members-list-table__cell members-list-table__cell--action">
       <BaseDropdown>
         <li>
-          <RouterLink class="dropdown__item" :to="detailsLink">View details</RouterLink>
+          <RouterLink class="dropdown__item" :to="detailsLink">View member details</RouterLink>
         </li>
-        <li class="dropdown__item" @click="attemptDelete">Delete member</li>
+        <li class="dropdown__item dropdown__item--no-border" @click="attemptDelete">
+          Delete member
+        </li>
       </BaseDropdown>
     </td>
   </tr>
@@ -23,10 +25,7 @@ const props = defineProps(['code', 'name', 'email', 'phone', 'dob', 'gender', 'p
 const emit = defineEmits(['delete']);
 
 const detailsLink = computed(() => `/members/${props.code}`);
-
-const attemptDelete = () => {
-  emit('delete', { code: props.code });
-};
+const attemptDelete = () => emit('delete');
 </script>
 
 <style scoped>
@@ -39,11 +38,17 @@ const attemptDelete = () => {
   padding: 12px 8px;
 }
 
+.members-list-table__cell--action {
+  width: 0;
+  min-width: fit-content;
+}
+
 .members-list-table__row:hover {
   background-color: #eee;
 }
 
 .dropdown__item {
+  white-space: nowrap;
   padding: 0.5rem 1rem;
   text-decoration: none;
   color: inherit;
@@ -55,5 +60,9 @@ const attemptDelete = () => {
 
 .dropdown__item:hover {
   background: var(--color-white-muted);
+}
+
+.dropdown__item--no-border {
+  border-bottom: none;
 }
 </style>

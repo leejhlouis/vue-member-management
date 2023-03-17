@@ -1,11 +1,12 @@
 <template>
   <BaseContainer>
-    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="hideSuccessModal" />
     <DeleteAlertModal
       v-if="isDeleteModalVisible"
-      @confirm="handleDelete"
+      @confirm="deleteMember"
       @close="hideDeleteModal"
     />
+    <LoadingModal v-if="isLoading" />
+    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="handleSuccess" />
     <div class="member-list-wrapper">
       <table class="members-list-table">
         <thead class="members-list-table__thead">
@@ -19,18 +20,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="member-list-table__row--is-empty" v-if="isLoading">
-            <td colspan="6">Loading...</td>
-          </tr>
-          <tr class="member-list-table__row--is-empty" v-else-if="!members">
+          <tr class="member-list-table__row--is-empty" v-if="!members">
             <td colspan="6">Empty list.</td>
           </tr>
           <MemberRow
             v-else
             v-for="member in members"
-            :key="member.id"
+            :key="member.code"
             :="member"
-            @delete="showDeleteModal"
+            @delete="handleDelete(member.code)"
           />
         </tbody>
       </table>
@@ -39,57 +37,51 @@
 </template>
 
 <script setup>
-import { ref, defineComponent, computed } from 'vue';
+import { ref, defineComponent, inject } from 'vue';
 import MemberRow from './MemberRow.vue';
 import { useStore } from 'vuex';
 
-defineComponent({
-  MemberRow,
-});
-
 const store = useStore();
 
-const isLoading = ref(true);
+defineComponent({ MemberRow });
 
-const loadMembers = async () => {
-  isLoading.value = true;
+const emit = defineEmits(['onMemberDeleted']);
 
-  store.dispatch('members/loadMembers', {
-    success() {
-      isLoading.value = false;
-    },
-    fail() {
-      isLoading.value = false;
-    },
-  });
-};
-
-loadMembers();
-
-const members = computed(() => store.getters['members/members']);
+const members = inject('members');
 
 const memberCode = ref(null);
+const isLoading = ref(false);
 const isSuccess = ref(false);
 const isDeleteModalVisible = ref(false);
 
-const showDeleteModal = ({ code }) => {
-  isDeleteModalVisible.value = true;
-  memberCode.value = code;
-};
-
+const showDeleteModal = () => (isDeleteModalVisible.value = true);
 const hideDeleteModal = () => (isDeleteModalVisible.value = false);
 
 const showSuccessModal = () => (isSuccess.value = true);
 const hideSuccessModal = () => (isSuccess.value = false);
 
-const handleDelete = async () => {
-  try {
-    await store.dispatch('members/deleteMember', { code: memberCode.value });
+const handleDelete = (code) => {
+  showDeleteModal();
+  memberCode.value = code;
+};
 
-    showSuccessModal();
-  } catch (error) {}
+const handleSuccess = () => {
+  hideSuccessModal();
+  emit('onMemberDeleted');
+};
 
+const deleteMember = async () => {
   hideDeleteModal();
+  isLoading.value = true;
+
+  try {
+    await store.dispatch('members/deleteMember', { memberCode: memberCode.value });
+
+    isLoading.value = false;
+    showSuccessModal();
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 
@@ -109,7 +101,7 @@ const handleDelete = async () => {
 
 .members-list-table {
   border-collapse: collapse;
-  width: 100%;
+  width: auto;
   min-width: 1024px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

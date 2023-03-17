@@ -1,63 +1,66 @@
 <template>
-  <div class="member-profile">
-    <SuccessAlertModal
-      v-if="isUpdateSuccess"
-      title="Member berhasil diubah"
-      @close="hideSuccessModal"
-    />
-    <div class="member-profile__header">
-      <h1 class="member-profile__title">{{ title }}</h1>
-      <BaseButton v-if="!isEditing" has-icon @click="enableEditing">
-        <template #icon>
-          <BaseIcon>
-            <PencilIcon />
-          </BaseIcon>
-        </template>
-        Edit
-      </BaseButton>
+  <div>
+    <div v-if="!isLoading" class="member-profile">
+      <SuccessAlertModal
+        v-if="isUpdateSuccess"
+        title="Member berhasil diubah"
+        @close="hideSuccessModal"
+      />
+      <div class="member-profile__header">
+        <h1 class="member-profile__title">{{ title }}</h1>
+        <BaseButton v-if="!isEditing" has-icon @click="enableEditing">
+          <template #icon>
+            <BaseIcon>
+              <PencilIcon />
+            </BaseIcon>
+          </template>
+          Edit
+        </BaseButton>
+      </div>
+      <BaseForm :submit="isEditing" :can-submit="canSubmit" @submit.prevent="handleSubmit">
+        <TextFieldInput
+          name="name"
+          v-model.trim="attributes.name.val"
+          :invalid="attributes.name.invalidMessage"
+          :readonly="!isEditing"
+        />
+        <TextFieldInput
+          name="email"
+          label="Email address"
+          type="email"
+          v-model.trim="attributes.email.val"
+          :invalid="attributes.email.invalidMessage"
+          :readonly="!isEditing"
+        />
+        <TextFieldInput
+          name="phone"
+          label="Phone number"
+          type="tel"
+          v-model.trim="attributes.phone.val"
+          :invalid="attributes.phone.invalidMessage"
+          :readonly="!isEditing"
+        />
+        <TextFieldInput
+          name="dob"
+          label="Date of birth"
+          type="date"
+          v-model.trim="attributes.dob.val"
+          :invalid="attributes.dob.invalidMessage"
+          :readonly="!isEditing"
+        />
+        <OptionsInput
+          name="gender"
+          :options="[
+            { label: 'Male', value: 'M' },
+            { label: 'Female', value: 'F' },
+          ]"
+          v-model.trim="attributes.gender.val"
+          :invalid="attributes.gender.invalidMessage"
+          :readonly="!isEditing"
+        />
+      </BaseForm>
     </div>
-    <BaseForm :submit="isEditing" :can-submit="canSubmit" @submit.prevent="handleSubmit">
-      <TextFieldInput
-        name="name"
-        v-model.trim="attributes.name.val"
-        :invalid="attributes.name.invalidMessage"
-        :readonly="!isEditing"
-      />
-      <TextFieldInput
-        name="email"
-        label="Email address"
-        type="email"
-        v-model.trim="attributes.email.val"
-        :invalid="attributes.email.invalidMessage"
-        :readonly="!isEditing"
-      />
-      <TextFieldInput
-        name="phone"
-        label="Phone number"
-        type="tel"
-        v-model.trim="attributes.phone.val"
-        :invalid="attributes.phone.invalidMessage"
-        :readonly="!isEditing"
-      />
-      <TextFieldInput
-        name="dob"
-        label="Date of birth"
-        type="date"
-        v-model.trim="attributes.dob.val"
-        :invalid="attributes.dob.invalidMessage"
-        :readonly="!isEditing"
-      />
-      <OptionsInput
-        name="gender"
-        :options="[
-          { label: 'Male', value: 'M' },
-          { label: 'Female', value: 'F' },
-        ]"
-        v-model.trim="attributes.gender.val"
-        :invalid="attributes.gender.invalidMessage"
-        :readonly="!isEditing"
-      />
-    </BaseForm>
+    <BaseLoading v-else />
   </div>
 </template>
 
@@ -68,43 +71,66 @@ import { PencilIcon } from '@heroicons/vue/24/solid';
 
 defineComponent({ PencilIcon });
 
-const store = useStore();
-
-const { code } = defineProps(['code']);
-const member = computed(() => store.getters['members/getMemberByCode'](code));
-
 const attributes = ref({
   name: {
     attrName: 'name',
-    val: member.value.name,
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
   email: {
     attrName: 'email address',
-    val: member.value.email,
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
   phone: {
     attrName: 'phone number',
-    val: member.value.phone,
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
   dob: {
     attrName: 'date of birth',
-    val: member.value.dob,
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
   gender: {
     attrName: 'gender',
-    val: member.value.gender,
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
 });
+
+const { code } = defineProps(['code']);
+const store = useStore();
+
+const isLoading = ref(false);
+const details = computed(() => store.getters['members/details']);
+
+const autofillFormValues = (arr) => {
+  for (const attr in attributes.value) {
+    attributes.value[attr].val = arr[attr];
+  }
+};
+
+const loadMemberDetails = async () => {
+  isLoading.value = true;
+
+  try {
+    await store.dispatch('members/loadMemberDetails', { memberCode: code });
+
+    autofillFormValues(details.value);
+  } catch (error) {
+    console.error(error);
+  }
+
+  isLoading.value = false;
+};
+
+loadMemberDetails();
 
 const isEditing = ref(false);
 const isUpdateSuccess = ref(false);
@@ -193,6 +219,8 @@ const validate = () => {
 };
 
 const handleSubmit = async () => {
+  isLoading.value = true;
+
   if (!isEditing.value) {
     return;
   }
@@ -213,18 +241,32 @@ const handleSubmit = async () => {
       gender: attributes.value.gender.val,
     });
 
+    autofillFormValues(details.value);
+
+    isLoading.value = false;
     disableEditing();
     showSuccessModal();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 
 <style scoped>
-.member-profile__header {
+.member-profile {
+  padding-bottom: 2rem;
+}
+
+.member-profile__header,
+.member-profile--loading {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 0;
+}
+
+.member-profile--loading {
+  color: var(--color-black-muted);
 }
 .member-profile__title {
   font-weight: 500;

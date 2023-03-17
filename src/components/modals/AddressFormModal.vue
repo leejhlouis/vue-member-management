@@ -1,5 +1,5 @@
 <template>
-  <FormModal :title="title" @close="close">
+  <FormModal v-if="!isLoading" :title="title" @close="close">
     <BaseForm :can-submit="canSubmit" @submit.prevent="handleSubmit">
       <TextFieldInput
         name="label"
@@ -28,12 +28,14 @@
       />
     </BaseForm>
   </FormModal>
+  <LoadingModal v-else fit-content />
 </template>
 
 <script setup>
 import FormModal from '../ui/modals/FormModal.vue';
 import { defineEmits, ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import BaseLoading from '../ui/BaseLoading.vue';
 
 const props = defineProps({
   mode: {
@@ -76,7 +78,21 @@ const attributes = ref({
   },
 });
 
+const isLoading = ref(false);
+
 const store = useStore();
+
+const loadRegions = async () => {
+  isLoading.value = true;
+  try {
+    await store.dispatch('regions/loadRegions');
+
+    isLoading.value = false;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const provinceCode = ref('');
 
 const provinces = computed(() => store.getters['regions/provinces']);
@@ -151,6 +167,8 @@ const handleSubmit = () => {
     address: attributes.value.address.val,
   });
 };
+
+loadRegions();
 </script>
 
 <style scoped>

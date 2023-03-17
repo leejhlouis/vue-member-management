@@ -1,79 +1,45 @@
-import httpApi from '../../../utils/httpApi';
-
-const generateCode = (prefix, array) => {
-  const lastCode = array && array.length !== 0 ? array[array.length - 1].code : null;
-  const codeNum = (lastCode ? parseInt(lastCode.split('-')[1]) : 0) + 1;
-
-  return `${prefix}-${codeNum.toString().padStart(5, '0')}`;
-};
-
-const getMemberCode = (members) => generateCode('MEM', members);
-const getAddressCode = (addresses) => generateCode('ADD', addresses);
+import axios from 'axios';
 
 export default {
-  async loadMembers({ commit }, { success, fail }) {
-    httpApi.get(
-      '/backend/member/summary?page=0&size=10',
-      ({ body: { data } }) => {
-        success();
+  async loadMembers({ commit }) {
+    try {
+      const response = await axios.get('/backend/member/summary?page=0&size=10');
 
-        const members = [];
-
-        for (const key in data) {
-          const member = {
-            code: data[key].code,
-            name: data[key].name,
-            email: data[key].email,
-            phone: data[key].phone,
-            dob: data[key].dob,
-            gender: data[key].gender,
-            profilePicture: data[key].profilePicture,
-          };
-
-          members.push(member);
-        }
-        commit('setMembers', members);
-      },
-      fail,
-    );
+      commit('setMembers', response.data.data);
+    } catch (error) {
+      throw new Error(error);
+    }
   },
-  async createMember({ getters, commit }, payload) {
-    const code = getMemberCode(getters.members);
-    // call api
+  async loadMemberDetails({ commit }, { memberCode }) {
+    try {
+      const response = await axios.get(`/backend/member/${memberCode}`);
 
-    commit('createMember', { ...payload, code });
+      commit('setMemberDetails', response.data.data[0]);
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  async createMember(_, payload) {
+    try {
+      await axios.post('/backend/member', payload);
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async updateMember({ commit }, payload) {
-    // call api
+    try {
+      const response = await axios.put(`/backend/member/${payload.code}`, payload);
 
-    commit('updateMember', { ...payload });
+      commit('setMemberDetails', response.data.data);
+    } catch (error) {
+      throw new Error(error);
+    }
   },
-  async deleteMember({ commit }, payload) {
-    // call api
-
-    commit('deleteMember', { ...payload });
-  },
-  async addAddress({ getters, commit }, { newAddress, memberCode }) {
-    const code = getAddressCode(getters.getMemberByCode(memberCode).addresses);
-
-    // call api
-
-    commit('addAddress', {
-      newAddress: {
-        ...newAddress,
-        code,
-      },
-      memberCode,
-    });
-  },
-  async editAddress({ commit }, payload) {
-    // call api
-
-    commit('editAddress', { ...payload });
-  },
-  async deleteAddress({ commit }, payload) {
-    // call api
-
-    commit('deleteAddress', { ...payload });
+  async deleteMember(_, { memberCode }) {
+    try {
+      await axios.delete(`/backend/member/${memberCode}`);
+    } catch (error) {
+      throw new Error(error);
+    }
   },
 };
