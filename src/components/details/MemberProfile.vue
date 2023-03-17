@@ -1,6 +1,6 @@
 <template>
-  <div class="member-profile">
-    <div v-if="!isLoading">
+  <div>
+    <div v-if="!isLoading" class="member-profile">
       <SuccessAlertModal
         v-if="isUpdateSuccess"
         title="Member berhasil diubah"
@@ -60,7 +60,7 @@
         />
       </BaseForm>
     </div>
-    <div v-else class="member-profile--loading">Loading...</div>
+    <BaseLoading v-else />
   </div>
 </template>
 
@@ -219,6 +219,8 @@ const validate = () => {
 };
 
 const handleSubmit = async () => {
+  isLoading.value = true;
+
   if (!isEditing.value) {
     return;
   }
@@ -238,9 +240,10 @@ const handleSubmit = async () => {
       dob: attributes.value.dob.val,
       gender: attributes.value.gender.val,
     });
-    
+
     autofillFormValues(details.value);
 
+    isLoading.value = false;
     disableEditing();
     showSuccessModal();
   } catch (error) {
@@ -250,6 +253,10 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
+.member-profile {
+  padding-bottom: 2rem;
+}
+
 .member-profile__header,
 .member-profile--loading {
   display: flex;

@@ -90,7 +90,6 @@ main {
 .member-details__container {
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-bottom: 2rem;
 }
 
 @media screen and (max-width: 767px) {

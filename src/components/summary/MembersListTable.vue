@@ -1,11 +1,12 @@
 <template>
   <BaseContainer>
-    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="handleSuccess" />
     <DeleteAlertModal
       v-if="isDeleteModalVisible"
       @confirm="deleteMember"
       @close="hideDeleteModal"
     />
+    <LoadingModal v-if="isLoading" />
+    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="handleSuccess" />
     <div class="member-list-wrapper">
       <table class="members-list-table">
         <thead class="members-list-table__thead">
@@ -19,10 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="member-list-table__row--is-empty" v-if="isLoading">
-            <td colspan="6">Loading...</td>
-          </tr>
-          <tr class="member-list-table__row--is-empty" v-else-if="!members">
+          <tr class="member-list-table__row--is-empty" v-if="!members">
             <td colspan="6">Empty list.</td>
           </tr>
           <MemberRow
@@ -49,10 +47,10 @@ defineComponent({ MemberRow });
 
 const emit = defineEmits(['onMemberDeleted']);
 
-const isLoading = inject('isLoading');
 const members = inject('members');
 
 const memberCode = ref(null);
+const isLoading = ref(false);
 const isSuccess = ref(false);
 const isDeleteModalVisible = ref(false);
 
@@ -73,15 +71,17 @@ const handleSuccess = () => {
 };
 
 const deleteMember = async () => {
+  hideDeleteModal();
+  isLoading.value = true;
+
   try {
     await store.dispatch('members/deleteMember', { memberCode: memberCode.value });
 
+    isLoading.value = false;
     showSuccessModal();
   } catch (error) {
     console.error(error);
   }
-
-  hideDeleteModal();
 };
 </script>
 

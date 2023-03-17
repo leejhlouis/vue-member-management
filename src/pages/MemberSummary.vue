@@ -1,9 +1,12 @@
 <template>
   <TheHeader />
-  <main>
-    <MembersListHeader class="members-summary-header" @onMemberCreated="loadMembers" />
-    <MembersListTable class="members-summary-table" @onMemberDeleted="loadMembers" />
-  </main>
+  <div>
+    <main v-if="!isLoading">
+      <MembersListHeader class="members-summary-header" @onMemberCreated="loadMembers" />
+      <MembersListTable class="members-summary-table" @onMemberDeleted="loadMembers" />
+    </main>
+    <BaseLoading class="loading" v-else>Loading...</BaseLoading>
+  </div>
   <TheFooter />
 </template>
 
@@ -41,7 +44,6 @@ const loadMembers = async () => {
 const members = computed(() => store.getters['members/members']);
 
 provide('members', members);
-provide('isLoading', isLoading);
 
 loadMembers();
 </script>
