@@ -1,50 +1,30 @@
 <template>
   <div class="dropdown" ref="dropdown">
-    <BaseButton
-      class="dropdown__button"
-      has-icon
-      icon-position="right"
-      mode="secondary"
-      @click="toggleDropdown"
-    >
+    <BaseButton class="dropdown__button" has-icon icon-position="right" mode="secondary">
       <template #icon>
         <BaseIcon>
-          <ChevronUpIcon v-show="isDropdownVisible" />
-          <ChevronDownIcon v-show="!isDropdownVisible" />
+          <ChevronUpIcon class="dropdown__chevron-up" />
+          <ChevronDownIcon class="dropdown__chevron-down" />
         </BaseIcon>
       </template>
       <p>Actions</p>
     </BaseButton>
-    <ul v-if="isDropdownVisible" class="dropdown__menu">
-      <slot></slot>
-    </ul>
+    <div class="dropdown__menu-container">
+      <ul class="dropdown__menu">
+        <slot></slot>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 defineComponent({
   ChevronUpIcon,
   ChevronDownIcon,
 });
-
-const dropdown = ref(null);
-const isDropdownVisible = ref(false);
-
-const hideDropdownIfClickedOutside = ({ target }) => {
-  if (dropdown.value && !dropdown.value.contains(target)) {
-    isDropdownVisible.value = false;
-    document.removeEventListener('click', hideDropdownIfClickedOutside);
-  }
-};
-
-window.addEventListener('click', hideDropdownIfClickedOutside);
-
-const toggleDropdown = () => {
-  isDropdownVisible.value = !isDropdownVisible.value;
-};
 </script>
 
 <style scoped>
@@ -52,15 +32,35 @@ const toggleDropdown = () => {
   position: relative;
 }
 
-.dropdown__menu {
+.dropdown:hover .dropdown__menu-container {
+  display: inline-block;
+}
+
+.dropdown:hover .dropdown__chevron-up {
+  display: block;
+}
+
+.dropdown:hover .dropdown__chevron-down {
+  display: none;
+}
+
+.dropdown__chevron-up {
+  display: none;
+}
+
+.dropdown__menu-container {
+  padding-top: 0.5rem;
+  display: none;
   position: absolute;
+  z-index: 10;
+  width: fit-content;
+}
+
+.dropdown__menu {
   list-style-type: none;
   background: var(--color-white);
   box-shadow: var(--box-shadow);
   border-radius: 12px;
-  z-index: 10;
-  width: fit-content;
   padding: 0.25rem 0;
-  margin-top: 0.5rem;
 }
 </style>

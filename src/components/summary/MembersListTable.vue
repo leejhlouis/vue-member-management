@@ -95,9 +95,9 @@ const deleteMember = async () => {
   max-height: calc(100vh);
 }
 
-/* .member-list-wrapper::-webkit-scrollbar {
+.member-list-wrapper::-webkit-scrollbar {
   display: none;
-} */
+}
 
 .members-list-table {
   border-collapse: collapse;
