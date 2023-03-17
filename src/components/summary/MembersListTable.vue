@@ -1,9 +1,9 @@
 <template>
   <BaseContainer>
-    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="hideSuccessModal" />
+    <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="handleSuccess" />
     <DeleteAlertModal
       v-if="isDeleteModalVisible"
-      @confirm="handleDelete"
+      @confirm="deleteMember"
       @close="hideDeleteModal"
     />
     <div class="member-list-wrapper">
@@ -30,7 +30,7 @@
             v-for="member in members"
             :key="member.code"
             :="member"
-            @delete="showDeleteModal"
+            @delete="handleDelete(member.code)"
           />
         </tbody>
       </table>
@@ -39,49 +39,40 @@
 </template>
 
 <script setup>
-import { ref, defineComponent, computed } from 'vue';
+import { ref, defineComponent, inject } from 'vue';
 import MemberRow from './MemberRow.vue';
 import { useStore } from 'vuex';
 
-defineComponent({
-  MemberRow,
-});
-
 const store = useStore();
 
-const isLoading = ref(true);
+defineComponent({ MemberRow });
 
-const loadMembers = async () => {
-  isLoading.value = true;
+const emit = defineEmits(['onMemberDeleted']);
 
-  try {
-    await store.dispatch('members/loadMembers');
-  } catch (error) {
-    console.error(error);
-  }
-
-  isLoading.value = false;
-};
-
-loadMembers();
-
-const members = computed(() => store.getters['members/members']);
+const isLoading = inject('isLoading');
+const members = inject('members');
 
 const memberCode = ref(null);
 const isSuccess = ref(false);
 const isDeleteModalVisible = ref(false);
 
-const showDeleteModal = ({ code }) => {
-  isDeleteModalVisible.value = true;
-  memberCode.value = code;
-};
-
+const showDeleteModal = () => (isDeleteModalVisible.value = true);
 const hideDeleteModal = () => (isDeleteModalVisible.value = false);
 
 const showSuccessModal = () => (isSuccess.value = true);
 const hideSuccessModal = () => (isSuccess.value = false);
 
-const handleDelete = async () => {
+const handleDelete = (code) => {
+  showDeleteModal();
+  memberCode.value = code;
+};
+
+const handleSuccess = () => {
+  hideSuccessModal();
+  emit('onMemberDeleted');
+};
+
+const deleteMember = async () => {
   try {
     await store.dispatch('members/deleteMember', { memberCode: memberCode.value });
 

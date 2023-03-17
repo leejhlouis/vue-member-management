@@ -52,7 +52,7 @@ export default {
   },
   async deleteMember({ commit }, { memberCode }) {
     try {
-      const res = await axios.delete(`/backend/member/${memberCode}`);
+      await axios.delete(`/backend/member/${memberCode}`);
 
       commit('deleteMember', { memberCode });
     } catch (error) {
