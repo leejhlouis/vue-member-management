@@ -1,7 +1,7 @@
 export default [
   {
     method: 'GET',
-    url: '/backend/region',
+    url: '/backend//region',
     response: {
       data: [
         {

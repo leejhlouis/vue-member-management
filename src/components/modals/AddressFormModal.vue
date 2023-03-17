@@ -77,6 +77,15 @@ const attributes = ref({
 });
 
 const store = useStore();
+
+const loadRegions = async () => {
+  try {
+    await store.dispatch('regions/loadRegions');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const provinceCode = ref('');
 
 const provinces = computed(() => store.getters['regions/provinces']);
@@ -151,6 +160,8 @@ const handleSubmit = () => {
     address: attributes.value.address.val,
   });
 };
+
+loadRegions();
 </script>
 
 <style scoped>
