@@ -12,7 +12,7 @@ const methodsMap = {
   DELETE: 'onAny',
 };
 
-const delayResponse = 500;
+const delayResponse = 100;
 const mock = new MockAdapter(axios, { delayResponse });
 
 const routes = [...members, ...addresses, ...regions];
