@@ -45,6 +45,7 @@
       name="profilePicture"
       label="Profile picture"
       type="file"
+      v-model.trim="attributes.profilePicture.val"
       :invalid="attributes.profilePicture.invalidMessage"
       :readonly="readonly"
       no-border
@@ -54,7 +55,7 @@
       name="profilePicture"
       label="Profile picture"
       type="text"
-      v-model.trim="attributes.profilePicture.val"
+      v-model.trim="props.profilePicture"
       :invalid="attributes.profilePicture.invalidMessage"
       :readonly="readonly"
     />
@@ -109,7 +110,7 @@ const attributes = ref({
   },
   profilePicture: {
     attrName: 'profile picture',
-    val: props.profilePicture ? props.profilePicture : '',
+    val: '',
     isValid: true,
     invalidMessage: null,
   },
@@ -134,7 +135,8 @@ const setValid = () => {
 
 const setInvalid = () => {
   for (const attr in attributes.value) {
-    if (!attributes.value[attr].isValid && !attributes.value[attr].invalidMessage) {
+    if (!attributes.value[attr].val && attributes.value[attr].val === '') {
+      attributes.value[attr].isValid = false;
       attributes.value[
         attr
       ].invalidMessage = `The ${attributes.value[attr].attrName} cannot be empty.`;
@@ -144,17 +146,15 @@ const setInvalid = () => {
 
 const validate = () => {
   setValid();
+  setInvalid();
 
-  if (!attributes.value.name.val || attributes.value.name.val === '') {
-    attributes.value.name.isValid = false;
-  } else if (!attributes.value.name.val.match(/^[a-z ,.'-]+$/i)) {
+  if (attributes.value.name.isValid && !attributes.value.name.val.match(/^[a-z ,.'-]+$/i)) {
     attributes.value.name.isValid = false;
     attributes.value.name.invalidMessage = 'The name must be filled by alphabetical characters.';
   }
 
-  if (!attributes.value.email.val || attributes.value.email.val === '') {
-    attributes.value.email.isValid = false;
-  } else if (
+  if (
+    attributes.value.email.isValid &&
     !attributes.value.email.val.match(
       /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(gdn-commerce)\.com$/i,
     )
@@ -163,25 +163,17 @@ const validate = () => {
     attributes.value.email.invalidMessage = 'The email address must end with "gdn-commerce.com".';
   }
 
-  if (!attributes.value.phone.val || attributes.value.phone.val === '') {
-    attributes.value.phone.isValid = false;
-  } else if (isNaN(attributes.value.phone.val)) {
+  if (attributes.value.phone.isValid && isNaN(attributes.value.phone.val)) {
     attributes.value.phone.isValid = false;
     attributes.value.phone.invalidMessage = 'The phone number must be numeric.';
   }
-
-  if (!attributes.value.dob.val || attributes.value.dob.val === '') {
-    attributes.value.dob.isValid = false;
-  }
-
-  if (!attributes.value.gender.val) {
-    attributes.value.gender.isValid = false;
-  }
-
-  setInvalid();
 };
 
 const canSubmit = computed(() => {
+  if (props.readonly) {
+    return props.readonly;
+  }
+
   if (
     attributes.value.name.val === '' &&
     attributes.value.email.val === '' &&

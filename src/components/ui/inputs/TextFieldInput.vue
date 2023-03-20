@@ -35,7 +35,7 @@ const props = defineProps({
   },
   modelValue: {
     type: String,
-    required: false,
+    required: true,
   },
   readonly: {
     type: Boolean,
@@ -67,7 +67,7 @@ const value = computed({
 
 const invalidClass = computed(() => {
   return {
-    invalid: !!props.invalid,
+    invalid: !!props.invalid && !props.noBorder,
   };
 });
 
