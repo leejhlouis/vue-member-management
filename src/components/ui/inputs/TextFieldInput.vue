@@ -4,7 +4,7 @@
       <input
         :id="name"
         class="form__input"
-        :class="invalidClass"
+        :class="[invalidClass, { 'form__input--border': !noBorder }]"
         :type="type"
         :placeholder="inputLabel"
         v-model="value"
@@ -35,7 +35,7 @@ const props = defineProps({
   },
   modelValue: {
     type: String,
-    required: true,
+    required: false,
   },
   readonly: {
     type: Boolean,
@@ -46,6 +46,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: null,
+  },
+  noBorder: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 });
 
@@ -79,8 +84,11 @@ const nameWithCapitalizedFirstLetter = computed(
 .form__input {
   padding: 0.5rem;
   border-radius: 0.25rem;
-  border: 1px solid #ccc;
   font-size: 1rem;
+}
+
+.form__input--border {
+  border: 1px solid #ccc;
 }
 
 .form__input.invalid {

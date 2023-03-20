@@ -6,6 +6,7 @@ export default {
       const response = await axios.get(
         `/backend/member/${memberCode}/address/summary?page=0&size=10`,
       );
+      console.log(response);
 
       commit('setAddresses', response.data.data);
     } catch (error) {
@@ -14,24 +15,27 @@ export default {
   },
   async addAddress(_, { newAddress, memberCode }) {
     try {
-      await axios.post(`/backend/member/${memberCode}/address`, newAddress);
+      const response = await axios.post(`/backend/member/${memberCode}/address`, newAddress);
+      console.log(response);
     } catch (error) {
       throw new Error(error);
     }
   },
   async editAddress(_, { updatedAddress, memberCode }) {
     try {
-      await axios.put(
+      const response = await axios.put(
         `/backend/member/${memberCode}/address/${updatedAddress.code}`,
         updatedAddress,
       );
+      console.log(response);
     } catch (error) {
       throw new Error(error);
     }
   },
   async deleteAddress(_, { memberCode, addressCode }) {
     try {
-      await axios.delete(`/backend/member/${memberCode}/address/${addressCode}`);
+      const response = await axios.delete(`/backend/member/${memberCode}/address/${addressCode}`);
+      console.log(response);
     } catch (error) {
       throw new Error(error);
     }

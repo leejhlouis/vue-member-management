@@ -1,5 +1,5 @@
 <template>
-  <BaseInput :name="name" :label="inputLabel" :invalid="invalid">
+  <BaseInput v-if="!readonly" :name="name" :label="inputLabel" :invalid="invalid">
     <template #input>
       <div class="form__radio-group">
         <label v-for="({ label, value }, index) in options" :key="index" class="form__radio-label">
@@ -15,6 +15,14 @@
       </div>
     </template>
   </BaseInput>
+  <TextFieldInput
+    v-else
+    :name="name"
+    :label="inputLabel"
+    type="text"
+    v-model.trim="selected"
+    :readonly="readonly"
+  />
 </template>
 
 <script setup>
