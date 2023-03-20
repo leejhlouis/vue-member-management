@@ -28,14 +28,13 @@
       />
     </BaseForm>
   </FormModal>
-  <LoadingModal v-else fit-content />
+  <LoadingModal v-else />
 </template>
 
 <script setup>
 import FormModal from '../ui/modals/FormModal.vue';
 import { defineEmits, ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import BaseLoading from '../ui/BaseLoading.vue';
 
 const props = defineProps({
   mode: {
