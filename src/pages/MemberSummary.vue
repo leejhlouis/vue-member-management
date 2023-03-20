@@ -1,9 +1,9 @@
 <template>
   <TheHeader />
   <div>
-    <main v-if="!isLoading">
-      <MembersListHeader class="members-summary-header" @onMemberCreated="loadMembers" />
-      <MembersListTable class="members-summary-table" @onMemberDeleted="loadMembers" />
+    <main v-if="!isLoading" @scroll="handleScroll">
+      <MembersListHeader class="members-summary-header" @onMemberCreated="reload" />
+      <MembersListTable class="members-summary-table" @onMemberDeleted="reload" />
     </main>
     <BaseLoading class="loading" v-else>Loading...</BaseLoading>
   </div>
@@ -27,13 +27,18 @@ defineComponent({
 
 const store = useStore();
 
-const isLoading = ref(true);
+const isLoading = ref(false);
+const isLoadingMoreRows = ref(false);
+const page = ref(0);
+const hasAllMembersLoaded = ref(false);
+
+const members = computed(() => store.getters['members/members']);
 
 const loadMembers = async () => {
   isLoading.value = true;
 
   try {
-    await store.dispatch('members/loadMembers');
+    await store.dispatch('members/loadMembers', { page: page.value });
   } catch (error) {
     console.error(error);
   }
@@ -41,9 +46,47 @@ const loadMembers = async () => {
   isLoading.value = false;
 };
 
-const members = computed(() => store.getters['members/members']);
+const loadMoreRows = async () => {
+  isLoadingMoreRows.value = true;
+
+  try {
+    await store.dispatch('members/pushMembers', { page: page.value });
+  } catch (error) {
+    if (error.response.status === 404) {
+      hasAllMembersLoaded.value = true;
+    }
+  }
+
+  isLoadingMoreRows.value = false;
+};
+
+const handleScroll = async (event) => {
+  const { scrollTop, offsetHeight, scrollHeight } = event.target;
+
+  if (
+    Math.ceil(scrollTop + offsetHeight) >= scrollHeight &&
+    !isLoadingMoreRows.value &&
+    !hasAllMembersLoaded.value
+  ) {
+    page.value++;
+
+    try {
+      await loadMoreRows();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
+const reload = async () => {
+  page.value = 0;
+  hasAllMembersLoaded.value = false;
+
+  await loadMembers();
+};
 
 provide('members', members);
+provide('isLoadingMoreRows', isLoadingMoreRows);
 
 loadMembers();
 </script>
@@ -53,13 +96,13 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  padding-top: 2rem;
   min-height: 100%;
-  max-height: calc(100vh - (56px + 48px + 2rem));
+  max-height: calc(100vh - (56px + 48px));
   overflow: auto;
 }
 
 .members-summary-header {
+  margin-top: 2rem;
   height: 72px;
   display: flex;
   align-items: center;
