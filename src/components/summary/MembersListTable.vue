@@ -5,9 +5,9 @@
       @confirm="deleteMember"
       @close="hideDeleteModal"
     />
-    <LoadingModal v-if="isLoading" />
+    <LoadingModal v-if="isDeleting" />
     <SuccessAlertModal v-if="isSuccess" title="Member berhasil dihapus" @close="handleSuccess" />
-    <div class="member-list-wrapper">
+    <div class="member-list-wrapper" @scroll="handleScroll" ref="memberList">
       <table class="members-list-table">
         <thead class="members-list-table__thead">
           <tr>
@@ -19,17 +19,21 @@
             <th class="members-list-table__header">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="member-list-table__row--is-empty" v-if="!members">
+        <tbody v-if="!members">
+          <tr class="member-list-table__row--is-empty">
             <td colspan="6">Empty list.</td>
           </tr>
+        </tbody>
+        <tbody v-else>
           <MemberRow
-            v-else
             v-for="member in members"
             :key="member.code"
             :="member"
             @delete="handleDelete(member.code)"
           />
+          <tr v-if="isLoadingMoreRows" class="member-list-table__row--is-empty">
+            <td colspan="6">Loading more rows...</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -37,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref, defineComponent, inject } from 'vue';
+import { ref, defineComponent, inject, watch } from 'vue';
 import MemberRow from './MemberRow.vue';
 import { useStore } from 'vuex';
 
@@ -45,12 +49,14 @@ const store = useStore();
 
 defineComponent({ MemberRow });
 
-const emit = defineEmits(['onMemberDeleted']);
+const emit = defineEmits(['onMemberDeleted', 'onScrollEnd']);
 
 const members = inject('members');
+const isLoadingMoreRows = inject('isLoadingMoreRows');
+const hasAllMembersLoaded = inject('hasAllMembersLoaded');
 
 const memberCode = ref(null);
-const isLoading = ref(false);
+const isDeleting = ref(false);
 const isSuccess = ref(false);
 const isDeleteModalVisible = ref(false);
 
@@ -72,15 +78,31 @@ const handleSuccess = () => {
 
 const deleteMember = async () => {
   hideDeleteModal();
-  isLoading.value = true;
+  isDeleting.value = true;
 
   try {
     await store.dispatch('members/deleteMember', { memberCode: memberCode.value });
 
-    isLoading.value = false;
+    isDeleting.value = false;
     showSuccessModal();
   } catch (error) {
     console.error(error);
+  }
+};
+
+const handleScroll = (event) => {
+  const { scrollTop, clientHeight, scrollHeight } = event.target;
+
+  if (
+    Math.ceil(scrollTop + clientHeight) >= scrollHeight &&
+    !isLoadingMoreRows.value &&
+    !hasAllMembersLoaded.value
+  ) {
+    try {
+      emit('onScrollEnd');
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 </script>
@@ -91,7 +113,7 @@ const deleteMember = async () => {
   margin-top: 1rem;
   height: fit-content;
   min-height: 240px;
-  max-height: calc(100vh - (56px + 48px + 5.5rem + 72px));
+  max-height: 468px;
 }
 
 .member-list-wrapper::-webkit-scrollbar {
