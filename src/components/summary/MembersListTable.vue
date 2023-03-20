@@ -109,7 +109,6 @@ const handleScroll = (event) => {
 
 <style scoped>
 .member-list-wrapper {
-  overflow: auto;
   margin-top: 1rem;
   height: fit-content;
   min-height: 240px;
