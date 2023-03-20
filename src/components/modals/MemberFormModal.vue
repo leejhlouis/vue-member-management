@@ -81,15 +81,6 @@ const attributes = ref({
 
 const close = () => emit('close');
 
-const canSubmit = computed(
-  () =>
-    attributes.value.name.val !== '' &&
-    attributes.value.email.val !== '' &&
-    attributes.value.phone.val !== '' &&
-    attributes.value.dob.val !== '' &&
-    !!attributes.value.gender.val,
-);
-
 const isValid = computed(() => {
   for (const attr in attributes.value) {
     if (!attributes.value[attr].isValid) {
@@ -155,6 +146,21 @@ const validate = () => {
 
   setInvalid();
 };
+
+const canSubmit = computed(() => {
+  if (
+    attributes.value.name.val === '' &&
+    attributes.value.email.val === '' &&
+    attributes.value.phone.val === '' &&
+    attributes.value.dob.val === '' &&
+    !attributes.value.gender.val
+  ) {
+    return false;
+  }
+  validate();
+
+  return isValid.value;
+});
 
 const handleSubmit = () => {
   validate();

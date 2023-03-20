@@ -1,13 +1,29 @@
 import axios from 'axios';
 
 export default {
-  async loadMembers({ commit }) {
+  async getMembers(_, { page }) {
     try {
-      const response = await axios.get('/backend/member/summary?page=0&size=10');
+      return await axios.get(`/backend/member/summary?page=${page}&size=10`);
+    } catch (error) {
+      throw error;
+    }
+  },
+  async loadMembers({ dispatch, commit }) {
+    try {
+      const response = await dispatch('getMembers', { page: 0 });
 
       commit('setMembers', response.data.data);
     } catch (error) {
-      throw new Error(error);
+      throw error;
+    }
+  },
+  async pushMembers({ dispatch, commit }, { page }) {
+    try {
+      const response = await dispatch('getMembers', { page });
+
+      commit('pushMembers', response.data.data);
+    } catch (error) {
+      throw error;
     }
   },
   async loadMemberDetails({ commit }, { memberCode }) {
@@ -16,14 +32,14 @@ export default {
 
       commit('setMemberDetails', response.data.data[0]);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   },
   async createMember(_, payload) {
     try {
       await axios.post('/backend/member', payload);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   },
   async updateMember({ commit }, payload) {
@@ -32,14 +48,14 @@ export default {
 
       commit('setMemberDetails', response.data.data);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   },
   async deleteMember(_, { memberCode }) {
     try {
       await axios.delete(`/backend/member/${memberCode}`);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   },
 };
