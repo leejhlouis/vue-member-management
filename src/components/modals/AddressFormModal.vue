@@ -106,13 +106,20 @@ const filterCities = ({ code }) => {
 
 const close = () => emit('close');
 
-const canSubmit = computed(
-  () =>
-    attributes.value.label.val !== '' &&
-    attributes.value.province.val !== '' &&
-    attributes.value.city.val !== '' &&
-    attributes.value.address.val !== '',
-);
+const canSubmit = computed(() => {
+  if (
+    attributes.value.label.val === '' &&
+    attributes.value.province.val === '' &&
+    attributes.value.city.val === '' &&
+    attributes.value.address.val === ''
+  ) {
+    return false;
+  }
+
+  validate();
+
+  return isValid.value;
+});
 
 const isValid = computed(() => {
   for (const attr in attributes.value) {
