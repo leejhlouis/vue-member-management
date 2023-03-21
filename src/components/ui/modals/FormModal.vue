@@ -12,7 +12,7 @@
 
 <script setup>
 import { XMarkIcon } from '@heroicons/vue/24/solid';
-import { defineComponent, defineProps, defineEmits } from 'vue';
+import { defineComponent } from 'vue';
 
 defineComponent({ XMarkIcon });
 

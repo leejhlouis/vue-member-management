@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineComponent, defineEmits } from 'vue';
+import { defineComponent } from 'vue';
 import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 
 defineProps(['title']);

@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref, defineComponent, inject, watch } from 'vue';
+import { ref, defineComponent, inject } from 'vue';
 import MemberRow from './MemberRow.vue';
 import { useStore } from 'vuex';
 

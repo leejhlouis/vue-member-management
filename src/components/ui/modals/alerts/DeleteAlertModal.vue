@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { defineComponent, defineEmits } from 'vue';
+import { defineComponent } from 'vue';
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/solid';
 
 defineComponent({ ExclamationTriangleIcon });

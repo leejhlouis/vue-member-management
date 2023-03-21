@@ -7,7 +7,6 @@
 <script setup>
 import MemberForm from '../forms/MemberForm.vue';
 import FormModal from '../ui/modals/FormModal.vue';
-import { defineEmits } from 'vue';
 
 const emit = defineEmits(['close', 'submit']);
 
