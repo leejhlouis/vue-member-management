@@ -53,7 +53,7 @@ const invalidClass = computed(() => {
 });
 
 const inputLabel = computed(() =>
-  !!props.label ? props.label : nameWithCapitalizedFirstLetter.value,
+  props.label ? props.label : nameWithCapitalizedFirstLetter.value,
 );
 
 const nameWithCapitalizedFirstLetter = computed(

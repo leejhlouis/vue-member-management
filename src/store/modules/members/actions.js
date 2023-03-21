@@ -42,7 +42,6 @@ export default {
     try {
       const response = await axios.post('/backend/member', payload);
       console.log(response);
-
     } catch (error) {
       throw error;
     }
@@ -61,7 +60,6 @@ export default {
     try {
       const response = await axios.delete(`/backend/member/${memberCode}`);
       console.log(response);
-      
     } catch (error) {
       throw error;
     }

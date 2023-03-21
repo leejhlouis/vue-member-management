@@ -53,25 +53,25 @@ const emit = defineEmits(['close', 'submit']);
 const attributes = ref({
   label: {
     attrName: 'name',
-    val: !!props.item ? props.item.label : '',
+    val: props.item ? props.item.label : '',
     isValid: true,
     invalidMessage: null,
   },
   province: {
     attrName: 'province',
-    val: !!props.item ? props.item.province : '',
+    val: props.item ? props.item.province : '',
     isValid: true,
     invalidMessage: null,
   },
   city: {
     attrName: 'city',
-    val: !!props.item ? props.item.city : '',
+    val: props.item ? props.item.city : '',
     isValid: true,
     invalidMessage: null,
   },
   address: {
     attrName: 'address',
-    val: !!props.item ? props.item.address : '',
+    val: props.item ? props.item.address : '',
     isValid: true,
     invalidMessage: null,
   },
