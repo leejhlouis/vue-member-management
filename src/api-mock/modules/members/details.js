@@ -1,3 +1,5 @@
+import image from "@/api-mock/helpers/image-assets";
+
 export default [
   {
     method: 'GET',
@@ -11,7 +13,7 @@ export default [
           phone: '0123456789',
           dob: '2021-01-01',
           gender: 'M',
-          profilePicture: 'www.blibli.com/picture/member.jpg',
+          profilePicture: image,
         },
       ],
     },
