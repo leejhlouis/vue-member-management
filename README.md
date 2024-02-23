@@ -1,6 +1,6 @@
 # vue-member-management
 
-This template should help get you started developing with Vue 3 in Vite.
+**vue-member-management** is a member management system app built with Vue.js (Composition API) and Vite. Built as a probation project during my internship at Blibli.
 
 ## Recommended IDE Setup
 
